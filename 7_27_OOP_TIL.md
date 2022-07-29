@@ -108,6 +108,16 @@
      * **is**
        * 동일한(**identical**)
        * 두 변수가 **동일한 객체**를 가리키는 경우 **True**
+     
+     ```python
+     a = [1, 2, 3]
+     b = [1, 2, 3]
+     print(a == b, a is b) # True False
+     
+     a = [1, 2, 3]
+     b = a
+     print(a == b, a is b) # True True
+     ```
 
 4. **OOP 속성**
    
@@ -126,6 +136,15 @@
      * 생성자 메서드(_____init______)에서 **self.<name>** 으로 정의
      
      * 인스턴스가 생성된 이후 <instance>.<name>으로 접근 및 할당
+     
+     ```python
+     class Person:
+         def __init__(self, name):
+             self.name = name
+     
+     john = Person('john')
+     print(john.name)  # john
+     ```
    
    * **클래스 변수**
      
@@ -134,12 +153,36 @@
      * <classname>.<name>으로 접근 및 할당
      
      * 인스턴스로도 클래스 변수 조회 가능: <instance>.<name> 인스턴스 변수 찾아보고 없으면 -> 클래스 변수 찾아본다.
+     
+     ```python
+     class Circle():
+         pi = 3.14   # 클래스 변수 정의
+     
+         def __init__(self, r):
+             self.r = r   # 인스턴스 변수
+     
+     c1 = Circle(5)
+     print(Circle.pi)  # 3.14
+     print(c1.pi)      # 3/14
+     ```
    
    * **클래스 변수 활용**하기
      
      * 사용자가 몇 명인지 확인하고 싶다면?
      
      * 인스턴스가 생성 될 때마다 클래스 변수가 늘어나도록 설정하면 됨
+     
+     ```python
+     class Person:
+         count = 0
+         def __init__(self, name):
+             self.name = name
+             Person.count += 1
+     
+     person1 = Person('아이유')
+     person2 = Person('이찬혁')
+     print(Person.count)   # 2
+     ```
    
    * 클래스 변수와 인스턴스 변수
      
@@ -176,6 +219,14 @@
        * 인스턴스 생성
        
        * __init__메서드 자동 호출
+     
+     ```python
+     class Person:
+         def __init__(self, name):
+             print(f'인스턴스 생성 {name}')
+     
+     person1 = Person('지민')  # 인스턴스 생성 지민
+     ```
    
    * **매직 메서드(스페셜 메서드)**
      
@@ -194,10 +245,46 @@
          * 어떤 인스턴스를 출력하면 ____str_____의 return 값 출력
        
        * ______gt_____:  부등호 연산자(>, greater than)
+       
+       ```python
+       class Circle:
+           def __init__(self, r):
+               self.r = r
+       
+           def area(self):
+               return 3.14 * self.r * self.r
+       
+           def __str__(self):
+               return f'[원] radius: {self.r}'
+       
+           def __gt__(self, other):
+               return self.r > other.r
+       
+           def __eq__(self, other):
+               return self.r == other.r
+       
+       c1 = Circle(10)
+       c2 = Circle(1)
+       
+       print(c1)     # [원] radius: 10
+       print(c2)     # [원] radius: 1
+       print(c1 > c2) # True
+       print(c1 < c2) # False
+       print(c1 == c2) # False
+       ```
    
    * **소멸자(destructor) 메서드**
      
      * 인스턴스 객체가 **소멸(파괴)** 되기 직전에 **호출**되는 메서드
+     
+     ```python
+     class Person:
+         def __del__(self):
+             print('인스턴스 소멸')
+     
+     person1 = Person()
+     del person1   # 인스턴스 소멸, person1.__del__() 동일
+     ```
 
 7. **클래스 메서드**
    
@@ -208,6 +295,22 @@
      * **@classmethod** 데코레이터를 사용하여 정의
      
      * 호출 시, **첫번째 인자**로 클래스(**cls**)가 전달됨
+     
+     ```python
+     class Person:
+         count = 0
+         def __init__(self, name):
+             self.name = name
+             Person.count += 1
+     
+         @classmethod
+         def number_of_population(cls):
+             print(f'인구수 {cls.count}')
+     
+     person1 = Person('아이유')
+     person2 = Person('이찬혁')
+     Person.number_of_population()  # 인구수 2
+     ```
    
    * **데코레이터**
      
@@ -218,6 +321,25 @@
      * 순서대로 적용되기 때문에 **작성 순서가 중요**
      
      * 데코레이터를 활용하면 **쉽게 여러 함수**를 원하는대로 **변경 가능**
+     
+     ```python
+     # 데코레이팅 함수
+     def add_print(original):
+         def wrapper():
+             print('시작')
+             original()
+             print('끝')
+         return wrapper   # 함수 return
+     
+     @add_print
+     def print_hello():
+         print('hello')
+     
+     print_hello()
+     # 시작
+     # hello
+     # 끝
+     ```
 
 8. **클래스 메서드와 인스턴스 메서드**
    
@@ -233,7 +355,7 @@
 
 9. **스태틱 메서드**
    
-   * **스태틱 메서드**: 인스턴스 변수, 클래스 변수를 전혀 다루지 않는 메서드
+   * **스태틱 메서드**: 인스턴스 변수, 클래스 변수를 **전혀 다루지 않는** 메서드
    
    * **언제 사용**하는가?
      
@@ -245,9 +367,26 @@
    
    * **@staticmethod** 데코레이터를 사용하여 정의
    
-   * 일반 함수처럼 동작하지만, 클래스의 이름공간에 귀속됨
+   * **일반 함수처럼** 동작하지만, **클래스의 이름공간에 귀속**됨
      
      * 주로 **해당 클래스로 한정**하는 용도로 사용
+   
+   ```python
+   class Person:
+       count = 0
+       def __init__(self, name):
+           self.name = name
+           Person.count += 1
+   
+       @staticmethod
+       def check_rich(money): # cls, self사용X
+           return money > 10000
+   
+   person1 = Person('아이유')
+   person2 = Person('이찬혁')
+   print(Person.check_rich(100000)) # 클래스로 접근가능
+   print(person1.check_rich(100000)) # 인스턴스로 접근가능
+   ```
 
 10. **인스턴스와 클래스 간의 이름 공간(namespace)**
     
@@ -267,9 +406,11 @@
       
       * **객체 상태**나 **클래스 상태**를 **수정할 수 없음.**
     
-    * 클래스 자체에서 각 메서드를 호출하는 경우: 인스턴스 메서드는 호출X
+    * **클래스 자체**에서 각 메서드를 호출하는 경우: **인스턴스 메서드는 호출X**
     
-    * 인스턴스는 클래스 메서드와 스태틱 메서드 모두 접근 가능
+    * **인스턴스**는 **클래스 메서드**와 **스태틱 메서드** **모두 접근** 가능
+      
+      * 인스턴스에서 클래스 메서드와 스태틱 메서드는 호출X (가능하다 != 사용한다)
 
 # 2. 객체지향의 핵심 개념
 
@@ -280,6 +421,10 @@
    * 현실 세계를 프로그램 설계에 반영
      
      * 복잡한 것은 숨기고, 필요한 것만 들어내기
+   
+   * 세부적인 내용은 감추고 필수적인 부분만 표현하는 것
+   
+   * 여러 클래스가 공통적으로 사용할 속성 및 메서드를 추출하여 기본 클래스로 작성하여 활용
 
 2. **상속**
    
@@ -300,14 +445,43 @@
      * **issubclass(class, classinfo)**: classinfo의 **subclass**면 **True**
        
        * classinfo는 클래스 객체의 튜플일 수 있으며, classinfo의 모든 항목 검사
+       
+       ```python
+       print(issubclass(bool, int)) # True
+       print(issubclass(float, int)) # False
+       ```
      
      * **super()**: 자식클래스에서 **부모클래스를 사용**하고 싶은 경우
+       
+       ```python
+       class Person:
+           def __init__(self, name, age, number, email):
+               self.name = name
+               self.age = age
+               self.number = number
+               self.email = email 
+       
+           def greeting(self):
+               print(f'안녕, {self.name}')
+       
+       class Student(Person):
+           def __init__(self, name, age, number, email, student_id):
+               super().__init__(name, age, number, email)
+               self.student_id = student_id
+       ```
      
      * **mro 메서드(Method Resolution Order)**
        
        * 해당 인스턴스의 클래스가 어떤 부모 클래스를 가지는지 확인
        
        * 기존의 인스턴스 -> 클래스 순으로 이름 공간을 탐색하는 과정에서 상속 관계에 있으면 **인스턴스 -> 자식 클래스 -> 부모 클래스**로 확장
+       
+       ```python
+       ClassName.__mro__
+       
+       # 또는
+       ClassName.mro()
+       ```
    
    * **상속 정리**
      
@@ -347,7 +521,27 @@
        
        * 상속받은 클래스에서 **같은 이름의 메서드로 덮어씀**
        
+       * _____init_____, ______str_____ 의 메서드를 정의하는 것도 메서드 오바라이딩 
+       
        * **부모 클래스의 메서드**를 실행시키고 싶은 경우 **super를 활용**
+       
+       ```python
+       class Person:
+           def __init__(self, name):
+               self.name = name
+           def talk(self):
+               print(f'{self.name}입니다.')
+       
+       class Student(Person):
+           def talk(self):
+               super().talk()
+               print(f'저는 학생입니다.')
+       
+       s1 = Student('이학생')
+       s1.talk()
+       # 이학생입니다.
+       # 저는 학생입니다.
+       ```
 
 4. **캡슐화**
    
@@ -380,6 +574,19 @@
      * **암묵적 규칙**에 의해 **부모 클래스 내부**와 **자식 클래스에서만 호출** 가능
      
      * 하위 클래스 **override 허용**
+     
+     ```python
+     class Person:
+         def __init__(self, name, age):
+             self.name = name
+             self._age = age
+     
+         def get_age(self):
+             return self._age
+     
+     p1 = Person('김싸피', 30)
+     print(p1.get_age())  # 30, _age에 직접 접근도 가능(암묵적)
+     ```
    
    * **Private Member**
      
@@ -390,6 +597,20 @@
      * 하위클래스 **상속 및 호출 불가능**(**오류**)
      
      * **외부 호출 불가능**(**오류**)
+     
+     ```python
+     class Person:
+         def __init__(self, name, age):
+             self.name = name
+             self.__age = age
+     
+         def get_age(self):
+             return self.__age
+     
+     p1 = Person('김싸피', 30)
+     print(p1.get_age())  # 30
+     print(p1.__age)  # 직접 접근 불가능 error
+     ```
    
    * **getter 메서드와 setter 메서드**
      
@@ -398,6 +619,28 @@
        * **getter 메서드**: 변수의 **값을 읽는** 메서드 -> **@property** 데코레이터 사용
        
        * **setter 메서드**: 변수의 **값을 설정**하는 성격의 메서드 -> **@변수.setter** 사용
+     
+     ```python
+     class Person:
+     
+         def __init__(self, age):
+             self._age = age 
+     
+         @property
+         def age(self):
+             return self._age
+     
+         @age.setter
+         def age(self, new_age):
+             if new_age <= 19:
+                 raise ValueError('Too Young For SSAFY')
+                 return
+     
+             self._age = new_age
+     
+     p1 = Person(20)
+     print(p1.age)  # 20._age = new_age
+     ```
 
 # 3. 에러와 예외
 
