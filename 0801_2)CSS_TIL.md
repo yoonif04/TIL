@@ -10,7 +10,7 @@
      
      ```css
      선택자(Selector) {
-         속성: 값;  
+         속성: 값;   /*선언(Declaration)*/
      }
      
      h1 {
@@ -42,7 +42,7 @@
      
      * **내부 참조(embedding)** - <style>
        
-       * <head> 태그 내에 <style>에 지정
+       * head태그 내에 style선언
        
        * 내부 참조를 쓰게 되면 코드가 너무 길어짐
        
@@ -177,7 +177,7 @@
      
      * px는 브라우저의 크기를 변경해도 그대로
      
-     * vw는 브라우저의 크기에 따라 크기가 변함
+     * **vw**는 브라우저의 크기에 따라 **크기가 변함**
    
    * **색상 단위**
      
@@ -190,12 +190,12 @@
      * **RGB** (background-color: rgb(0, 255, 0);)
        
        * 16진수 표기법 혹은 함수형 표기법을 사용해서 특정 색을 표현하는 방식
-       * '#' + 16진수 표기법
-       * rgb() 함수형 표기법
+       * **'#' + 16진수** 표기법
+       * **rgb() 함수형** 표기법
      
      * **HSL 색상**
        
-       * 색상, 채도, 명도를 통해 특정 색을 표현하는 방식
+       * **색상, 채도, 명도**를 통해 특정 색을 표현하는 방식
      
      * a는 alpha(투명도)
    
@@ -203,15 +203,15 @@
      
      * 텍스트
        
-       * 서체(font-family), 서체 스타일(font-style, font-weight 등)
+       * 서체(**font-family**), 서체 스타일(**font-style**, **font-weight** 등)
        
-       * 자간(letter-spacing), 단어 간격(word-spacing), 행간(line-height)등
+       * 자간(**letter-spacing**), 단어 간격(**word-spacing**), 행간(**line-height**)등
      
-     * 컬러(color), 배경(background-image, background-color)
+     * 컬러(**color**), 배경(**background-image**, **background-color**)
      
      * 기타 HTML 태그별 스타일링
        
-       * 목록(li), 표(table)
+       * 목록(**li**), 표(**table**)
 
 4. Selectors 심화
    
@@ -236,8 +236,16 @@
      * 하나의 박스는 **네 부분(영역)** 으로 이루어짐: margin, border, padding, content
      
      * **margin**: 테두리 바깥의 외부 여백. 배경색 지정X
+       
+       * margin-top, margin-right, margin-bottom, margin-left
+       
+       * margin shorthand
      
      * **border**: 테두리 영역
+       
+       * border-width, border-style, border-color
+       
+       * border shorthand
      
      * **padding**: 테두리 안쪽의 내부 여백. 요소에 적용된 배경색, 이미지는 padding까지 적용
      
@@ -275,7 +283,7 @@
        
        * width, height, margin-top, margin-bottom **지정 불가**
        
-       * 상하 여백은 line-height로 지정한다.
+       * **상하 여백은 line-height**로 지정한다.
    
    * **블록 레벨 요소와 인라인 레벨 요소**
      
@@ -291,17 +299,17 @@
    
    * display
      
-     * display: inline-block
+     * display: **inline-block**
        
        * block과 inline레벨 요소의 특징을 모두 가짐
        
        * inline처럼 한 줄에 표시할 수 있고, block처럼 width, height, margin 속성 모두 지정 가능
      
-     * display: none
+     * display: **none**
        
-       * 해당 요소를 화면에 표시하지 않고, 공간조차 부여X
+       * 해당 요소를 화면에 표시하지 않고, **공간조차 부여X**
        
-       * visibility: hidden은 해당 요소가 공간은 차지하나 화면에 표시X
+       * **visibility: hidden**은 해당 요소가 **공간은 차지**하나 **화면에 표시X**
 
 7. **CSS Position**
    
@@ -317,23 +325,23 @@
      
      * **relative** : 상대 위치
        
-       * 자기 자신의 static 위치를 기준으로 이동 (**normal flow 유지**)
+       * **자기 자신의 static 위치를 기준**으로 이동 (**normal flow 유지**)
        
-       * 레이아웃에서 요소가 차지하는 공간은 static일 때와 같음 (normal position 대비 offset)
+       * 레이아웃에서 요소가 **차지하는 공간은 static일 때와 같음** (normal position 대비 offset)
      
      * **absolute** : 절대 위치
        
        * 요소를 일반적인 문서 흐름에서 제거 후 레이아웃에 공간을 차지하지 않음 (**normal flow에서 벗어남**)
        
-       * static이 아닌 가장 가까이 있는 부모/조상 요소를 기준으로 이동 (없는 경우 브라우저 화면 기준 이동)
+       * **static이 아닌** 가장 가까이 있는 **부모/조상 요소를 기준**으로 이동 (없는 경우 브라우저 화면 기준 이동)
      
      * **fixed** : 고정 위치
        
-       * 요소를 일반적인 문서 흐름에서 제거 후 레이아웃에 공간을 차지하지 않음 (**normal flow에서 벗어남**)
+       * 요소를 일반적인 문서 흐름에서 제거 후 레이아웃에 **공간을 차지하지 않음** (**normal flow에서 벗어남**)
        
        * 부모 요소와 관계없이 viewport를 기준으로 이동
          
-         * 스크롤 시에도 항상 같은 곳에 위치함
+         * **스크롤 시에도 항상 같은 곳**에 위치함
      
      * **sticky**: 스크롤에 따라 **static -> fixed**로 변경
        
@@ -341,9 +349,9 @@
      
      * absolute vs relative
        
-       * absolute는 normal flow에서 벗어남 -> 다음 블록 요소가 좌측 상단으로 붙음
+       * **absolute**는 normal flow에서 벗어남 -> **다음 블록 요소**가 **좌측 상단**으로 붙음
        
-       * relative는 normal flow 유지 -> 실제 위치는 그대로, 사람 눈에만 이동
+       * **relative**는 normal flow 유지 -> 실제 위치는 그대로, 사람 눈에만 이동
    
    * CSS 원칙
      
@@ -364,3 +372,21 @@
          * fixed : 화면의 위치
          
          * sticky : 기본적으로 static이나 스크롤 이동에 따라 fixed로 변경
+
+## 개발자 도구
+
+----
+
+1. 크롬 개발자 도구
+   
+   * 주요 기능
+     
+     * Elements - DOM 탐색 및 CSS 확인 및 변경
+       
+       * Styles: 요소에 적용된 CSS 확인
+       
+       * Computed: 스타일이 계산된 최종 결과
+       
+       * Event Listeners: 해당 요소에 적용된 이벤트 (JS)
+     
+     * Sources, Network, Performance, Application, Security, Audits 등

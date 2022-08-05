@@ -211,8 +211,8 @@
      | <b></b><strong></strong> | 굵은 글씨 요소<br/>중요한 강조하고자 하는 요소 (보통 굵은 글씨로 표현)   |
      | <i></i><em></em>         | 기울임 글씨 요소<br/>중요한 강조하고자 하는 요소 (보통 기울임 글씨로 표현) |
      | <br>                     | 텍스트 내에 줄 바꿈 생성                                |
-     | < img>                   | src 속성을 활용하여 이미지 표현                           |
-     | <span></span>            | 의미 없는 인라인 컨테이너                                |
+     | < img>                   | **src 속성**을 활용하여 이미지 표현                       |
+     | <span></span>            | 의미 없는 **인라인** 컨테이너                            |
    
    * **그룹 컨텐츠**
      
@@ -223,7 +223,7 @@
      | <ol></ol><ul></ul>        | 순서가 있는 리스트(ordered)<br/>순서가 없는 리스트(unordered)            |
      | <pre></pre>               | HTML에 작성한 내용을 그대로 표현<br/>보통 고정폭 글꼴이 사용되고 공백문자를 유지        |
      | <blockquote></blockquote> | 텍스트가 긴 인용문<br/>주로 들여쓰기를 한 것으로 표현됨                        |
-     | <div></div>               | 의미 없는 블록 레벨 컨테이너                                         |
+     | <div></div>               | 의미 없는 **블록** 레벨 컨테이너                                     |
    
    * **form**
      
@@ -288,6 +288,18 @@
        * **checkbox** : 다중 선택
        
        * **radio** : 단일 선택
+       
+       ```html
+       <div>
+           <p>checkbox</p>
+           <input id="html" type="checkbox" name="language" value="html">
+           <label for="html">HTML</label>
+           <input id="python" type="checkbox" name="language" value="python">
+           <label for="python">파이썬</label>
+           <input id="python" type="checkbox" name="language" value="java">
+           <label for="java">파이썬</label>
+       </div>
+       ```
    
    * **input 유형 - 기타**
      
