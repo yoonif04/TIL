@@ -118,6 +118,8 @@
          sum_arr += arr[i][N-i-1]
      ```
    
+   * 대각선 양쪽의 합 -> N이 홀수인 경우 중앙 2번 더해짐 -> 빼줘야 함 (N//2, N//2)
+   
    * 왼쪽 대각선의 왼쪽, 오른쪽 영역의 합
      
      ```python
@@ -465,3 +467,54 @@
 4. 연습문제3
    
    * 2차 배열 초기화한 후 달팽이 배열로
+     
+     ```python
+     # 2차 배열 입력받은 것 -> 달팽이 순회 적용
+     N = int(input())
+     arr = [list(map(int, input().split())) for _ in range(N)]
+     
+     # 새로운 배열
+     new_arr = [[0]*N for _ in range(N)]
+     
+     # 2차원 배열의 값들만 가져와서 1차원으로
+     nums = []
+     for i in range(N):
+         for j in range(N):
+             nums.append(arr[i][j])
+     
+     # 1차원 배열 정렬
+     for i in range(len(nums) - 1):
+         minIdx = i
+         for j in range(i+1, len(nums)):
+             if nums[minIdx] > nums[j]:
+                 minIdx = j
+         nums[minIdx], nums[i] = nums[i], nums[minIdx]
+     
+     # 새로운 배열에 값 채우기
+     dx = [0, 1, 0, -1]    # 우,하,좌,상
+     dy = [1, 0, -1, 0]
+     
+     d = 0
+     x, y = 0, 0
+     idx = 0
+     
+     while idx < len(nums):
+         new_arr[x][y] = nums[idx]
+         idx += 1
+     
+         # 새로운 방향
+         nx = x + dx[d]
+         ny = y + dy[d]
+         # 새로운 방향이 가능한지 여부
+         if 0<=nx<N and 0<=ny<N and new_arr[nx][ny] == 0:
+             x, y = nx, ny
+         else: # 그게 아니라면
+             d = (d+1) % 4     # 새로운 방향
+             x += dx[d]        # 바꾼방향을 x로
+             y += dy[d]        # 바꾼방향을 y로
+     
+     for i in range(N):
+         for j in range(N):
+             print(new_arr[i][j], end=" ")
+         print()
+     ```
