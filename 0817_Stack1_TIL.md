@@ -61,6 +61,37 @@
    * 스택의 pop 알고리즘
 
 3. 연습문제1: 스택 구현
+   
+   ```python
+   # 스택을 클래스로 구현
+   class stack:
+       def __init__(self):
+           self.items = []  # 스택에 사용할 리스트 (저장공간)
+           # self.top = -1
+           # self.size = 10
+   
+       # 1. push 원소 삽입
+       # item: 삽입할 원소
+       def push(self, item):
+           self.items.append(item)
+           # self.top += 1
+           print(f"push {item}")
+   
+       # 2. pop 원소 제거 (꺼내기)
+       def pop(self):
+           item = self.items.pop(-1)
+           print(f"pop {item}")
+           return item
+   
+       # 3. peek top에 있는 원소 반환(제거X)
+       def peek(self):
+           print(f"peek {self.items[-1]}")
+           return self.items[-1]
+   
+       # 4. isEmpty 스택이 비어있는지 확인하는 연산, 비어있으면 True
+       def isEmpty(self):
+           return not self.items
+   ```
 
 4. 스택 구현 고려 사항
    
@@ -97,6 +128,28 @@
      * 마지막 괄호까지 조사 후에도 스택에 괄호가 남아 있으면 -> 조건 1에 위배
 
 6. 연습문제2: 괄호의 짝 검사
+   
+   ```python
+   def find_pair(texts):
+       stack = []
+   
+       for text in texts:
+           if text == "(":  # 여는 괄호라면
+               stack.append(text)
+           else:  # 닫는 괄호라면
+               # 길이 0이면 꺼낼 수 없는 상태
+               if len(stack) == 0:
+                   return 0
+               else:
+                   before = stack.pop(-1)  # 마지막 꺼내기
+                   if before != "(":  # 여는 괄호가 아니면
+                       return 0
+   
+       if len(stack) == 0:
+           return 1
+       else:
+           return 0
+   ```
 
 7. 스택의 응용2: function call
    
@@ -188,10 +241,6 @@
    
    * 재귀적 구조 -> 시스템 호출 스택을 사용하는 오버헤드 발생
 
-
-
-
-
 ## 5. DFS(깊이우선탐색)
 
 ----
@@ -223,3 +272,94 @@
    * 스택이 공백이 될 때 까지 위를 반복
    
    * 구현
+     
+     ```python
+     adjList = [[1, 2],
+                [0, 3, 4],
+                [0, 4],
+                [1, 5],
+                [1, 2, 5],
+                [3, 4, 6],
+                [5]]
+     def dfs(v, N):
+     
+          top = -1
+          print(v)    # 방문
+     
+          # 시작점 방문 표시
+          visited[v] = 1
+          while True:
+              # v의 인접 간선 확인
+              for w in adjList[v]:
+                  # 방문하지 않았다면
+                  if not visited[w]:
+                      top += 1        # push
+                      stack[top] = v
+                      visited[w] = 1  # 방문처리
+                      v = w
+                      print(v)
+                      break
+              else:               # w가 없으면
+                  # 스택이 비어있지 않으면
+                  if top != -1:
+                      v = stack[top]  # pop
+                      top -= 1
+                  else:   # 스택이 비어있으면
+                      break
+     ```
+
+4. 연습문제 3
+   
+   ```python
+   # s: start
+   # V: 정점의 개수
+   # 0 1 2 3 4 5 6 7
+   adj = [[],
+          [2, 3],
+          [1, 4, 5],
+          [1, 7],
+          [2, 6],
+          [2, 6],
+          [4, 5, 7],
+          [3, 6]]
+   adm = [[0, 0, 0, 0, 0, 0, 0, 0],
+          [0, 0, 1, 1, 0, 0, 0, 0],
+          [0, 1, 0, 0, 1, 1, 0, 0],
+          [0, 1, 0, 0, 0, 0, 0, 1],
+          [0, 0, 1, 0, 0, 0, 1, 0],
+          [0, 0, 1, 0, 0, 0, 1, 0],
+          [0, 0, 0, 0, 1, 1, 0, 1],
+          [0, 0, 0, 1, 0, 0, 1, 0]]
+   
+   def dfs(s, V):
+       # 정점의 방문 여부를 알기 위한 배열 선언
+       visited = [0] * (V + 1)  # 0번 인덱스 사용X
+       stack = []   # size xxx
+       now = s     # 현재 위치 now로 표현
+       visited[now] = 1    # 시작 위치는 방문했다고 체크
+       print(f"-{now}", end="")
+   
+       while True:
+           # 다음 방문 위치 방문
+           for w in range(1, V+1):  # 1~V번 정점
+               # 다음 방문 위치가 있고, 해당 방문위치를 방문한 적이 없으면
+               # 다음 방문 위치 처리
+               # 현재 위치를 스택에 저장
+               # 다음 방문 위치를 방문했다고 체크
+               # 현재 위치를 다음 위치로 바꾸고
+               # 탈출
+               if adm[now][w] and not visited[w]:
+                   stack.append(now)
+                   visited[w] = 1
+                   now = w
+                   print(f"-{now}", end="")
+                   break
+           else:
+               # 다음 방문 위치가 없다(방문했던 곳만 남거나, 인접한 곳X)
+               if stack:   # 스택이 비어있지 않으면 아직 방문할 곳 존재
+                   # 지난 정점으로 돌아가기
+                   now = stack.pop()
+               else:   # 스택 비어있음 -> 탐색 중지
+                   break
+       return
+   ```
