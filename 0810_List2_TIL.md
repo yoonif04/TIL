@@ -309,6 +309,17 @@
        * 시간 복잡도 : O(n)
      
      * 구현 예
+      ```python
+      def sequentialSearch(a, n, key):
+         # a: list, n: 길이
+         i = 0
+         while i < n and a[i] != key:
+            i += 1
+         if i < n:
+            return i
+         else:
+            return -1
+      ```
    
    * 정렬되어 있는 경우
      
