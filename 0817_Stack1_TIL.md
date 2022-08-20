@@ -185,9 +185,9 @@
       ```python
      def fibo2(n):
          if n < 2:
-           return n
+             return n
          else:
-	   return fibo2(n-1) + fibo2(n-2)
+	     return fibo2(n-1) + fibo2(n-2)
      ```
 
 
