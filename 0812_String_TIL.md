@@ -158,7 +158,7 @@
      print(s1 == s4)  # True
      print(s1 is s4)  # True
      print(s1 == s5)  # True
-     print(s1 i
+     print(s1 is s5)  # False
      ```
    
    * 사전 순서: 같으면 0, str1이 앞서면 -1, str2이 앞서면 1 리턴
