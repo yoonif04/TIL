@@ -331,11 +331,22 @@
      
      * 찾고자 하는 원소의 순서에 따라 비교횟수가 결정됨
        
-       * 정렬되어 있으므로, 검색 실패를 반환하는 경우 평균 비료 회수가 반으로 줄어듦
+       * 정렬되어 있으므로, 검색 실패를 반환하는 경우 평균 비교 회수가 반으로 줄어듦
        
        * 시간 복잡도 : O(n)
      
      * 구현 예
+      ```python
+      def sequentialSearch2(a, n, key):
+         # a:list, n:길이
+         i = 0
+         while i < n and a[i] < key:
+            i += 1
+         if i < n and a[i] == key:
+            return i
+         else:
+            return -1
+      ```
 
 3. **이진 검색(Binary Search)**
    
