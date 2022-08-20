@@ -213,7 +213,7 @@ def itoa(a):
         mod = a % i
         s += chr(ord("0") + mod)
         a //= 10
-    return s
+    return s[::-1]
 
 
 # 패턴 매칭
