@@ -184,10 +184,10 @@
        * Fi = Fi-1 + Fi-2  for i>=2
       ```python
      def fibo2(n):
-     	if n < 2:
-	  return n
-	else:
-	  return fibo2(n-1) + fibo2(n-2)
+         if n < 2:
+           return n
+         else:
+	   return fibo2(n-1) + fibo2(n-2)
      ```
 
 
@@ -240,10 +240,10 @@
    * 알고리즘
      ```python
      def fibo2(n):
-       f = [0, 1]
-       for i in range(2, n+1):
-         f.append(f[i-1] + f[i-2])
-       return f[n]
+         f = [0, 1]
+         for i in range(2, n+1):
+           f.append(f[i-1] + f[i-2])
+         return f[n]
      ```
 
 3. DP의 구현 방식
