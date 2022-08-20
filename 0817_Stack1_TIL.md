@@ -183,12 +183,12 @@
        
        * Fi = Fi-1 + Fi-2  for i>=2
       ```python
-      def fibo(n):
-      	if n < 2:
+     def fibo2(n):
+     	if n < 2:
 	  return n
 	else:
-	  return fibo(n-1) + fibo(n-2)
-      ```
+	  return fibo2(n-1) + fibo2(n-2)
+     ```
 
 
 ## 3. Memoization
@@ -238,12 +238,19 @@
      * 결과는 테이블에 저장하고, 테이블에 저장된 부분 문제의 해를 이용하여 상위 문제의 해 구하기
    
    * 알고리즘
+     ```python
+     def fibo2(n):
+       f = [0, 1]
+       for i in range(2, n+1):
+         f.append(f[i-1] + f[i-2])
+       return f[n]
+     ```
 
 3. DP의 구현 방식
    
-   * recursive 방식
+   * recursive 방식: fibo1
    
-   * iterative 방식
+   * iterative 방식: fibo2
    
    * memoization을 재귀적 구조에 사용하는 것보다 반복적 구조로 DP를 구현한 것이 성능 면에서 보다 효율적
    
