@@ -226,7 +226,7 @@
    
    arr = [2, 4, 3, 2, 1, 5, 6]
    k = 6
-   B = [0]*k
+   B = [0]*(len(arr))
    Counting_sort(arr, B, k)
    print(B) 
    ```
