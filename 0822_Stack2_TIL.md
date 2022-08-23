@@ -252,3 +252,82 @@
    * 정복(Conquer) : 나눈 작은 문제를 각각 해결한다.
    
    * 통합(Combine) : (필요하다면) 해결된 해답을 모은다.
+
+3. 분할정복 예제
+   
+   * 거듭 제곱(Exponentiation)
+
+4. 퀵 정렬
+   
+   * 주어진 배열을 두 개로 분할하고, 각각을 정렬
+   
+   * 합병정렬과 다른점
+     
+     * 합병정렬 -> 그냥 두 부분으로 나눔, 퀵정렬->기준 아이템(pivot item)중심으로 이보다 작은것은 왼편, 큰 것은 오른편에 위치시킨다.
+     
+     * 합병정렬 -> 각 부분 정렬 후 합병이라는 후처리 필요, 퀵정렬 -> 후처리 필요X
+   
+   * 알고리즘
+     
+     ```python
+     def partition(arr, begin, end):
+         pivot = (begin + end)//2
+         L = begin
+         R = end
+         while L < R:
+             while L < R and arr[L] < arr[pivot]:
+                 L += 1
+             while L < R and arr[R] >= arr[pivot]:
+                 R -= 1
+             if L < R:
+                 if L == pivot:
+                     pivot = R
+                 arr[L], arr[R] = arr[R], arr[L]
+         arr[pivot], arr[R] = arr[R], arr[pivot]
+         return R
+     
+      def quicksort(arr, begin, end):
+          if begin < end:
+              p = partition(arr, begin, end)
+              quicksort(arr, begin, p-1)
+              quicksort(arr, p+1, end)
+     ```
+* 추가
+  
+  ```python
+  def quicksort(arr, start, end):
+      # 원소 1개인 경우
+      if start >= end:
+          return
+  
+      pivot = start
+      left, right = start + 1, end
+      while left <= right:
+          # pivot보다 큰 데이터 찾을 때까지 반복
+          while left <= end and arr[left] <= arr[pivot]:
+              left += 1
+          # pivot보다 작은 데이터를 찾을 때까지 반복
+          while right > start and arr[right] >= arr[pivot]:
+              right -= 1
+          # 엇갈린 경우
+          if left > right:
+              arr[right], arr[pivot] = arr[pivot], arr[right]
+          else:   # 엇갈리지 않은 경우
+              arr[right], arr[left] = arr[left], arr[right]
+      quicksort(arr, start, right-1)
+      quicksort(arr, right+1, end)
+  
+  arr = [2, 5, 4, 3 ,21, 7, 1, 2, 4]
+  quicksort(arr, 0, len(arr)-1)
+  print(arr)
+  
+  def quicksort(arr):
+      if len(arr) <= 1:
+          return arr
+      pivot = arr[0]
+      tail = arr[1:]
+      left = [x for x in tail if x <= pivot]
+      right = [x for x in tail if x > pivot]
+  
+      return quicksort(left) + [pivot] + quicksort(right)
+  ```
