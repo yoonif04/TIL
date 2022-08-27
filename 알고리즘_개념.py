@@ -20,15 +20,17 @@ for i in range(N - 1):
 
 print(arr)
 
+
 # 셀렉션 알고리즘
 def select(arr, k):
     for i in range(k):
         minIdx = i
-        for j in range(i+1, len(arr)):
+        for j in range(i + 1, len(arr)):
             if arr[minIdx] > arr[j]:
                 minIdx = j
         arr[i], arr[minIdx] = arr[minIdx], arr[i]
-    return arr[k-1]
+    return arr[k - 1]
+
 
 # 카운팅 정렬
 arr = [1, 3, 5, 4, 2, 1, 1]
@@ -114,9 +116,9 @@ for i in range(N):
 # 오른쪽 대각선의 왼쪽, 오른쪽 영역의 합
 sum_left, sum_right = 0, 0
 for i in range(N):
-    for j in range(N-1-i):
+    for j in range(N - 1 - i):
         sum_left += arr[i][j]
-        sum_right += arr[N-j-1][N-i-1]
+        sum_right += arr[N - j - 1][N - i - 1]
 
 # 같은 사선 상의 합
 N = 5
@@ -153,6 +155,7 @@ def binarySearch(arr, N, key):
         else:
             start = middle + 1
     return False
+
 
 # 이진검색 - 재귀함수 이용
 def binarySearch(arr, low, high, key):
@@ -260,13 +263,13 @@ def is_prime(n):
 
 # 에라토스테네스의 체
 def get_prime(n):
-    arr = [True] * (n+1)
-    m = int((n+1)**0.5)
-    for i in range(2, m+1):
+    arr = [True] * (n + 1)
+    m = int((n + 1) ** 0.5)
+    for i in range(2, m + 1):
         if arr[i]:
-            for j in range(i+i, n+1, i):
+            for j in range(i + i, n + 1, i):
                 arr[j] = False
-    return [i for i in range(2, n+1) if arr[i] == True]
+    return [i for i in range(2, n + 1) if arr[i] == True]
 
 
 # 스택 구현
@@ -274,14 +277,78 @@ def get_prime(n):
 # memoization
 def fibo1(n):
     if n >= 2 and len(memo) <= n:
-        memo.append(fibo1(n-1) + fibo1(n-2))
+        memo.append(fibo1(n - 1) + fibo1(n - 2))
     return memo[n]
+
+
 memo = [0, 1]
 print(fibo1(4))
+
 
 # dp
 def fibo2(n):
     f = [0, 1]
-    for i in range(2, n+1):
-        f.append(f[n-1] + f[n-2])
+    for i in range(2, n + 1):
+        f.append(f[n - 1] + f[n - 2])
     return f[n]
+
+
+# 스택
+# 후위 표기식
+n = int(input())
+infix = input()
+
+stack = [0] * n
+top = -1
+# 연산자 우선순위
+icp = {"+": 1, "-": 1, "/": 2, "*": 2}
+
+postfix = ""
+for i in range(n):
+    if "0" <= infix[i] <= "9":
+        postfix += infix[i]
+    else:
+        while top > -1 and icp[stack[top]] >= icp[infix[i]]:
+            postfix += stack[top]
+            top -= 1
+        top += 1
+        stack[top] = infix[i]
+while top > -1:
+    postfix += stack[top]
+    top -= 1
+print(postfix)
+
+
+# 부분집합 구하기
+def f(i, N):
+    if i == N:
+        for i in range(N):
+            if bit[i]:
+                print(A[i], end=" ")
+    else:
+        bit[i] = 1
+        f(i + 1, N)
+        bit[i] = 0
+        f(i + 1, N)
+
+
+A = [1, 2, 3, 4, 5, 6, 7, 8, 9, 10]
+bit = [0] * 10
+answer = 0
+f(0, 10)
+print(answer)
+
+
+# 분할정복 - 거듭제곱
+def power(base, e):
+    if e == 0 or base == 0:
+        return 1
+    if e % 2 == 0:
+        newbase = power(base, e / 2)
+        return newbase * newbase
+    else:
+        newbase = power(base, (e - 1) / 2)
+        return (newbase * newbase) * base
+
+
+print(power(2, 10))
