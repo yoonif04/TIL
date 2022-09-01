@@ -454,3 +454,103 @@
    * QuerySet API를 통해 view 함수에서 직접 CRUD 구현하기
 
 2. 사전 준비
+
+3. READ 1
+
+4. CREATE
+   
+   * 2가지 문제점 발생
+   
+   * Django shortcut function - "redirect()"
+     
+     * url로 요청 보냄
+   
+   * HTTP response status code
+     
+     * Informational responses (1xx)
+     
+     * Successful responses (2xx)
+     
+     * Redirection messages (3xx)
+     
+     * Client error responses (4xx)
+     
+     * Server error responses (5xx)
+   
+   * HTTP method GET 재검토
+   
+   * HTTP request method
+     
+     * GET
+       
+       * 특정 리소스를 가져오도록 요청할 때 사용
+       
+       * 반드시 데이터를 가져올 때만 사용해야 함
+       
+       * DB에 변화X
+       
+       * CRUD에서 R 역할 담당
+     
+     * POST
+       
+       * 서버로 데이터를 전송할 때 사용
+       
+       * 서버에 변경사항을 만듦
+       
+       * 리소스를 생성/변경하기 위해 데이터를 HTTP body에 담아 전송
+       
+       * GET의 쿼리 스트링 파라미터와 다르게 URL로 보내지지 않음
+       
+       * CRUD에서 C/U/D 역할을 담당
+       
+       * html의 form에서 method "POST"로, views에서 데이터 받아서 처리할 때 request.POST.get()
+   
+   * CSRF: Cross-Site-Request-Forgery
+     
+     * 사이트 간 요청 위조
+     
+     * 사용자가 자신의 의지와 무관하게, 공격자가 의도한 행동 -> 특정 웹페이지를 보안에 취약하게 하거나 수정, 삭제 등의 작업을 하게 만드는 공격 방법
+   
+   * CSFR 공격 방어
+     
+     * Security Token 사용 방식 (CSRF Token)
+   
+   * csrf_token 템플릿 태그: {% csrf_token %}
+     
+     * 태그 없다면 Django 서버는 요청에 대해 403 forbidden
+     
+     * 템플릿에서 내부 URL로 향하는 Post form을 사용하는 경우에 사용
+       
+       * 외부 URL로 향하는 POST form -> CSRF 토큰 유출되어 취약성 유발할 수 있기 때문에 사용X
+
+5. READ 2 (detail page)
+   
+   * 모든 게시글마다 뷰 함수, 템플릿 파일 만들 수 X
+     
+     * 글의 번호(pk) 활용 하나의 뷰 함수와 템플릿 파일로 대응
+   
+   * Variable Routing 활용
+
+6. DELETE
+
+7. UPDATE
+   
+   * 2개의 view 함수 필요
+
+
+
+## 5. Admin site
+
+----
+
+1. 개요
+   
+   * 관리자 페이지
+   
+   * 서버의 관리자가 활용하기 위한 페이지
+   
+   * 레코드 생성 여부 확인에 매우 유용하며, 직접 레코드를 삽입 가능
+
+2. admin 계정 생성
+
+3. admin에 모델 클래스 등록
