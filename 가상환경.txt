@@ -1,0 +1,9 @@
+가상환경
+$ python -m venv ./venv
+$ source venv/Scripts/activate
+
+패키지 설치
+$ pip install -r requirements.txt
+
+서버 가동 -> 장고 잘되는지 확인
+migrate 명령어로 DB 동기화
