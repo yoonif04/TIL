@@ -481,6 +481,22 @@
      * 키값이 가장 큰 노드를 찾기 위한 **완전 이진 트리**
      * 부모 노드의 키 값 > 자식 노드의 키 값
      * 루트 노드 : 키값이 가장 큰 노드
+     
+     ```python
+     def enq(n):
+         global last
+         last += 1  # 마지막 정점 추가
+         heap[last] = n  # 마지막 정점에 key 추가
+         # 부모 < 자식인 경우 자리 교환 (부모 없거나 부모 > 자식조건 만족할 때까지)
+         c = last
+         p = c // 2  # 완전이진트리에서 부모 정점 번호
+         while p and heap[p] < heap[c]:
+             heap[p], heap[c] = heap[c], heap[p]
+             c = p
+             p = c // 2
+     heap = [0] * 100
+     last = 0
+     ```
    
    * **최소 힙(min heap)**
      
@@ -493,5 +509,55 @@
 3. 힙 연산 - 삭제
    
    * 루트 노드의 원소만을 삭제 가능
+   
+   ```python
+   # 힙 삭제
+   def deq():
+       global last
+       tmp = heap[1]  # 루트 백업
+       heap[1] = heap[last]  # 삭제할 노드의 키를 루트에 복사
+       last -= 1  # 마지막 노드 삭제
+       p = 1  # 루트에 옮긴 값을 자식과 비교
+       c = p * 2   # 왼쪽 자식
+       while c <= last:
+           # 오른쪽 자식도 있고, 오른쪽 자식이 더 크면
+           if c+1 <= last and heap[c] < heap[c+1]:
+               c += 1
+           # 자식이 더 크면 교환
+           if heap[p] < heap[c]:
+               heap[p], heap[c] = heap[c], heap[p]
+               p = c   # 자식을 새로운 부모로
+               c = p * 2   # 왼쪽 자식
+           # 부모가 더 크면 중단
+           else:
+               break
+       return tmp
+   ```
 
 4. 힙을 이용한 우선순위 큐
+
+## 5. 추가
+
+----
+
+1. 서브트리에 속한 노드의 개수 구하기/마지막에 방문한 정점 번호
+   
+   ```python
+   # 전위순회 응용
+   def preorder(n):
+       global cnt
+       # 0이 아니면
+       if n:
+           print(n, end=" ")
+           # cnt += 1    # 루트부터의 개수
+           cnt = n  # 마지막에 방문한 정점 번호
+           preorder(ch1[n])
+           preorder(ch2[n])
+   def f(n):
+       if n == 0:  # 서브트리가 비어있으면
+           return 0
+       else:
+           L = f(ch1[n])
+           R = f(ch2[n])
+           return L + R + 1
+   ```

@@ -523,7 +523,7 @@
    
    * **로그인 하지 않은** 사용자의 경우 **settings.py의 LOGIN_URL 문자열 주소로 redirect**
    
-   * [참고] L**OGIN_URL 기본값**은 **/accounts/login/**
+   * [참고] **LOGIN_URL 기본값**은 **/accounts/login/**
    
    * 두번째 app이름을 accounts로 했던 이유 중 하나
    
