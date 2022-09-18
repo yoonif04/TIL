@@ -1,0 +1,106 @@
+Q1. 서비스 개발에 필요한 기능들을 미리 구현해서 모아놓은 것으로 직접 개발을 줄여주고 생산성과 품질을 높여주는 것은?
+
+
+Q2. Django의 디자인 패턴에서 클라이언트의 요청에 대해 처리를 분기하는 역할을 하는 것은?
+
+
+Q3. 다음은 request를 인자로 받아 "index.html"파일을 화면에 표시해주는 함수이다. 아래의 index 함수를 완성하시오.
+
+```python
+# articles/views.py
+# index.html은 articles앱의 templates폴더에 있습니다.
+def index(request):
+	pass
+```
+
+
+Q4. DTL Syntax중 filter를 이용하여 views를 통해 받은 name 값을 모두 소문자로 출력하시오.
+```html
+<-- articles/templates/index.html -->
+...
+<body>
+  <p> {{ 여기에 출력 }} </p>
+</body>
+```
+
+
+Q5. OX 문제
+Django에서는 "naver.com/detail"와 "naver.com/detail/"를 같은 URL로 보기 때문에 "naver.com/detail"로 url을 작성시 "naver.com/detail/"로 자동으로 바꾸어 준다. (O / X)
+
+
+Q6. 프로젝트 폴더의 urls.py에서 관리해야할 앱들의 urlpatterns가 너무 많아 앱들의 페이지는 각 앱 폴더의 urls.py에서 관리를 하고싶을 때 아래의 빈 칸을 채우시오
+
+```python
+# project/urls.py
+# project에서는 firstapps의 urls.py 파일로 firstapps의 urlpatterns를 관리하려고 한다
+
+urlpatterns = [
+    path('firstapps/', HERE),
+]
+```
+
+Q7. 아래의 url 태그의 주소를 urls.py를 참고하여 해당 부분만 절대주소로 바꾸시오.
+
+```python
+# articles/urls.py
+
+app_name = "articles"
+urlpatterns = [
+    path("index/hello/", views.hello, name="hello"),
+]
+```
+
+url 태그 주소 : {% url 'firstapps:hello' %}
+절대 주소 : 
+
+
+Q8. makemigrations로 만든 설계도를 실제 DB에 반영하기 위한 명령어는?
+
+
+Q9. DataTimeField()의 인자(auto_now_add, auto_now) 중에서 최종 수정 일자를 기준으로 save를 할 때마다 날짜와 시간을 갱신하는 것은?
+
+
+Q10. 사용자가 자신의 의지와는 무관하게 공격자가 의도한 행동을 하여 특정 웹페이지를 보안에 취약하게 만들거나 수정, 삭제 등의 작업을 하게 만드는 공격 기법은?
+
+
+Q11. modelForm에서 model의 데이터를 그대로 가져왔을 때나 위젯 등을 이용했을 때는 form의 charField()와 달리 유효성 검사를 따로 함수를 이용해서 해주어야한다. 이때 사용하는 함수는?
+
+ 
+Q12. View decorators를 활용하여 아래 함수가 GET과 POST요청만 받을 수 있게 decorator를 추가하시오
+
+```python
+# views.py
+from django.views.decorators.http import require_http_methods
+
+def create(request):
+    pass
+```
+
+
+Q13. ModelForm보다 Form사용이 더욱 적절한 경우는?
+
+
+Q14. Django의 인증 시스템에서 기존 Built-in 돼 있는 User Model을 Custom User Model로 대체해야하는 이유
+
+
+Q15. 김싸피는 로그인 페이지 작성을 위해 django에서 제공해주는 함수를 이용하려 했지만 해당 코드가 "인자가 1개 필요한데 2개가 들어왔어요"라며 에러를 띄웠다. 잘못된 부분을 고치시오.
+
+```python
+# views.py
+from django.shortcuts import render, redirect
+from django.contrib.auth import login
+
+def login(request):
+    if request.method == 'POST':
+        form = AuthenticationForm(request, request.POST)
+        if form.is_valid():
+            # 로그인
+            login(request, form.get_user())
+            return redirect('articles:index')
+    else:
+        form = AuthenticationForm()
+    context = {
+        'form': form,
+    }
+    return render(request, 'accounts/login.html', context)
+```

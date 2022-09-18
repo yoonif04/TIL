@@ -1,0 +1,19 @@
+** 답 이상한 거 있으면 알려주세요~
+
+1. 프레임워크
+2. view
+3. `return render(request, "index.html")
+4. {{ name|lower }}
+5. X (url 끝에 자동으로 "/"를 붙여주는 건 맞지만 "naver.com/detail"과 "naver.com/detail/"를 같은 URL로 보지는 않음)
+6. `include("firstapps.urls")`
+7. firstapps/index/hello
+8. python manage.py migrate
+9. auto_now
+10. CSRF(cross site request forgery)
+11. `is_valid()`
+12. @require_http_methods(["GET", "POST"])
+13. 사용자의 직접 입력 데이터가 DB에 사용되지 않거나 일부 데이터만 사용될 때
+14. 기존 user model과 동일하게 작동하면서도 필요한 부분을 맞춤설정하여 사용 가능하기 때문에
+15. 기존 auth라이브러리에 포함 돼 있는 login 함수와 개발자가 작성한 login 함수가 충돌을 일으켜서 에러 발생
+2번라인 import login을 import login as auth_login
+10번라인 login을 auth_login으로 변경
