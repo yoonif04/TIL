@@ -20,11 +20,19 @@
 
 2. Intro
    
-   * RDB 복습
+   * RDB(관계형 데이터베이스) 복습
+     
+     * 데이터를 테이블, 행, 열 등으로 나누어 구조화하는 방식
+     
+     * RDB의 모든 테이블에는 행에서 고유하게 식별 가능한 기본키라는 속성이 있으며, 외래키를 사용하여 각 행에서 서로 다른 테이블 간의 관계를 만드는데 사용할 수 있음
    
-   * [참고] 관계 (Relationship)
+   * **[참고] 관계 (Relationship)**
+     
+     * 테이블 간의 상호작용을 기반으로 설정되는 여러 테이블 간의 논리적인 연결
    
    * 테이블 간 관계 예시
+     
+     * 관계형 데이터베이스에서 한 테이블의 필드 중 다른 테이블의 행을 식별할 수 있는 키를 외래키(foreign key, FK)라 함
    
    * **RDB에서의 관계**
      
@@ -42,7 +50,7 @@
        
        * 기준 테이블에 따라(1:N, One-to-many relationships)이라고도 함
      
-     * **N:N**
+     * **M:N**
        
        * Many-to-many relationships
        
@@ -58,9 +66,9 @@
      
      * **외래키(외부키)**
      
-     * 관계형 DB에서 한 테이블의 필드 중 다른 테이블의 행을 식별할 수 있는 키
+     * 관계형 DB에서 한 테이블의 필드 중 **다른 테이블의 행을 식별**할 수 있는 키
      
-     * 참조하는 테이블에서 1개의 키에 해당하고, 이는 참조되는 측 테이블의 기본키를 가리킴
+     * 참조되는 테이블의 기본키(Primary Key)를 가리킴
      
      * 참조하는 테이블의 행 1개의 값은, 참조되는 측 테이블의 행 값에 대응됨
        
@@ -76,7 +84,7 @@
    
    * **[참고] 참조 무결성**
      
-     * DB 관계 모델에서 관련된 2개의 테이블 간의 일관성을 말함
+     * DB 관계 모델에서 관련된 <u>2개의 테이블 간의 일관성</u>을 말함
      
      * 외래키가 선언된 테이블의 외래키 속성(열)의 값은 그 테이블의 부모가 되는 테이블의 기본키 값으로 존재해야 함
 
@@ -110,9 +118,9 @@
        
        * **2개의 필수 위치 인자**가 필요
          
-         * 참조하는 model class
+         * 참조하는 **model class**
          
-         * on_delete 옵션
+         * **on_delete** 옵션
      
      * **ManyToManyField()**
 
@@ -120,7 +128,7 @@
    
    * Comment 모델 정의
      
-     * 외래키 필드는 ForeignKey 클래스를 작성하는 위치와 관계없이 필드의 마지막에 작성됨
+     * 외래키 필드는 ForeignKey 클래스를 <u>작성하는 위치와 관계없이 필드의 마지막에 작성됨</u>
      
      * ForeignKey() 클래스의 인스턴스 이름은 **참조하는 모델 클래스 이름의 단수형(소문자)** 으로 작성하는 것을 권장
    
@@ -150,7 +158,9 @@
        
        * 범위 무결성 (Domain integrity)
    
-   * Migration 과정 진행
+   * **Migration 과정 진행**
+     
+     * migrate 후 Comment 모델 클래스로 인해 생성된 테이블 확인
      
      * ForeignKey 모델 필드로 인해 작성된 컬럼의 이름 -> article_id
      
@@ -176,7 +186,7 @@
      
      * 나를 참조하는 테이블(나를 외래 키로 지정한)을 참조하는 것
      
-     * 즉, 본인을 외래 키로 참조 중인 다른 테이블에 접근하는 것
+     * 즉, <u>본인을 외래 키로 참조 중인 다른 테이블에 접근</u>하는 것
      
      * N:1 관계에서는 1이 N을 참조하는 상황
        
@@ -197,26 +207,34 @@
      * 반면 참조 상황(Comment -> Article)에서는 실제 ForeignKey 클래스로 작성한 인스턴스가 Comment 클래스의 클래스 변수이기 때문에 comment.article 형태로 작성 가능
    
    * Related manager 연습하기
-   
-   * ForeignKey arguments - related_name
      
-     * 역참조 시 사용하는 매니저 이름(model_set manager)을 변경할 수 있음
+     * dir(): 클래스 객체가 사용할 수 있는 메서드 목록
+   
+   * ForeignKey arguments - **related_name**
+     
+     * **역참조** 시 사용하는 **매니저 이름**(model_set manager)을 **변경할 수 있음**
      
      * 작성 후, migration 과정 필요
      
      * 변경하면 기존 article.comment_set은 더 이상 사용X ->  대체
-
-6. Comment 구현
    
-   * CREATE
+   * admin site 등록
+
+6. **Comment 구현**
+   
+   * **CREATE**
+     
+     * CommentForm 작성
+     
+     * detail 페이지에서 CommentForm 출력(view 함수, 템플릿)
      
      * 실 서비스에서는 댓글을 어떤 게시글에 작성하는지 직접 게시글 번호를 선택하지 않음
      
      * Comment 클래스의 외래 키 필드 article 또한 데이터 입력이 필요하기 때문에 출력되고 있는 것
      
-     * but, **외래키 필드** -> 사용자의 입력으로 받는 것이 아니라 **view 함수 내에서** 받아 별도로 처리되어 저장되어야 함
+     * but, **외래키 필드** -> 사용자의 입력으로 받는 것이 아니라 **view 함수 내에서** 받아 **별도로 처리되어 저장**되어야 함
      
-     * 출력에서 제외
+     * 외래키 필드를 출력에서 제외 -> forms.py에서 exclude에 추가
      
      * 출력에서 제외된 외래키 데이터는 어디서 받아와야 할까?
      
@@ -230,31 +248,45 @@
    
    * The save() method
      
-     * save(commit=False)
+     * **save(commit=False)**
        
-       * 아직 DB에 저장되지 않은 인스턴스를 반환
+       * 아직 **DB에 저장되지 않은 인스턴스를 반환**
        
-       * 저장하기 전에 객체에 대한 사용자 지정 처리를 수행할 때 유용하게 사용
+       * 저장하기 전에 <u>객체에 대한 사용자 지정 처리</u>를 수행할 때 유용하게 사용
    
    * READ
+     
+     * 작성한 댓글 목록 출력 -> 역참조로 모든 댓글 가져온 후 context에 추가, 템플릿에서 댓글 목록 출력
    
    * DELETE
    
-   * 댓글 수정을 지금 구현하지 않는 이유
+   * **댓글 수정**을 지금 구현하지 않는 이유
      
-     * 일반적으로 댓글 수정은 수정 페이지로 이동 없이 현재 페이지가 유지된 상태로 댓글 작성 Form 부분만 변경되어 수정할 수 있도록 함
+     * 일반적으로 댓글 수정은 수정 페이지로 이동 없이 **현재 페이지가 유지된 상태로** 댓글 작성 Form 부분만 변경되어 수정할 수 있도록 함
      
-     * 이처럼 페이지의 일부 내용만 업데이트 하는 것 -> JavaScript의 영역
+     * 이처럼 **페이지의 일부 내용만 업데이트** 하는 것 -> **JavaScript의 영역**
 
 7. Comment 추가 사항
    
    * 댓글 개수 출력하기
      
      * DTL filter - length 사용
+       
+       * {{comments|length}}
+       
+       * {{article.comment_set.all|length}}
      
      * Queryset API - count() 사용
+       
+       * {{comments.count}}
+       
+       * {{article.comment_set.count}}
    
    * 댓글이 없는 경우 대체 컨텐츠 출력하기
+     
+     * DTL for empty 활용하기
+       
+       * {% empty %}
 
 ## 3. N:1 (Article - User)
 
@@ -274,31 +306,41 @@
      
      * **settings.AUTH_USER_MODEL**
        
-       * 반환 값: 'accounts.User' (**문자열**)
+       * 반환 값: **'accounts.User'** (**문자열**)
        
        * User 모델에 대한 외래키 또는 M:N 관계를 정의할 때 사용
        
-       * **models.py의 모델 필드**에서 User 모델을 참조할 때 사용
+       * **models.py의 모델 필드**에서 **User 모델을 참조할 때** 사용
      
      * **get_user_model()**
        
-       * 반환 값: User Object (**객체**)
+       * 반환 값: **User Object** (**객체**)
        
        * 현재 활성화(active)된 User 모델을 반환
        
        * 커스터마이징한 User 모델이 있을 경우는 Custom User 모델, 그렇지 않으면 User 반환
        
-       * models.py가 아닌 **다른 모든 곳**에서 유저 모델을 참조할 때 사용
-   
-   * Django에서 User 모델을 참조하는 방법 정리
+       * **models.py가 아닌 다른 모든 곳**에서 유저 모델을 참조할 때 사용
 
 3. 모델 관계 설정
+   
+   * models.py에 settings 활용하여 외래키 작성
    
    * Migration 진행
      
      * 기본적으로 모든 컬럼은 NOT NULL 제약조건이 있기 때문에 데이터가 없이는 새로 추가되는 외래키 필드 user_id가 생성되지 않음
      
      * 그래서 기본값을 어떻게 작성할 것인지 선택해야 함
+   
+   * **Django에서 User 모델을 참조하는 방법 정리**
+     
+     * 문자열과 객체를 반환하는 특징과 Django의 내부적인 실행 원리에 관련된 것
+     
+     * User 모델을 참조할 때
+       
+       * models.py에서는 settings.AUTH_USER_MODEL
+       
+       * 다른 모든 곳에서는 get_user_model()
 
 4. CREATE
    
@@ -307,18 +349,25 @@
      * 인증된 회원의 게시글 작성 구현하기
      
      * 작성하기 전 로그인을 먼저 진행한 상태로 진행
+   
+   * forms.py 
+   
+   * views.py에서 save의 commit 옵션 활용 작성자 정보 함께 저장
 
 5. DELETE
    
    * 게시글 삭제 시 작성자 확인
      
-     * 현재 삭제를 요청하려는 사람과 게시글을 작성한 사람을 비교
+     * 현재 삭제를 요청하려는 사람과 게시글을 작성한 사람을 비교 -> 본인의 게시글만 삭제할 수 있도록
 
 6. UPDATE
    
-   * 게시글 수정 시 작성자 확인
+   * 게시글 수정 시 작성자 확인 -> 본인의 게시글만 수정할 수 있도록
+   * 게시글 작성자가 아니라면 -> 수정/삭제 버튼 출력하지 않도록
 
 7. READ
+   
+   * index 템플릿과 detail 템플릿에서 각 게시글의 작성자 출력
 
 ## 4. N:1 (Comment-User)
 
@@ -331,15 +380,53 @@
    * 0개 이상의 댓글은 1개의 회원에 의해 작성 될 수 있음
 
 2. 모델 관계 설정
+   
+   * models.py 외래키 작성
+   
+   * migration 진행
 
 3. CREATE
+   
+   * forms.py에서 출력 필드 수정
+   
+   * views.py에서 save의 commit 옵션 활용하여 작성자 정보 저장
 
 4. READ
+   
+   * detail 템플릿에서 각 게시글의 작성자 출력
 
 5. DELETE
+   
+   * views.py에서 본인의 댓글만 삭제할 수 있도록 함
+   
+   * 템플릿에서 해당 댓글의 작성자가 아니라면, 삭제 버튼 출력하지 않도록 함
 
-6. 인증된 사용자에 대한 접근 제한하기
+6. **인증된 사용자에 대한 접근 제한**하기
    
    * is_authenticated와 View decorator를 활용하여 코드 정리하기
    
    * 인증된 사용자인 경우만 댓글 작성 및 삭제하기
+   
+   * 비인증 사용자는 CommentForm을 볼 수 없도록 하기
+
+## 5. 마무리
+
+---
+
+1. A many-to-one relationship
+   
+   * Foreign Key
+   
+   * Django Relationship fields
+   
+   * Related manager
+
+2. N:1 모델 관계 설정
+   
+   * Comment - Article
+   
+   * Article - User
+     
+     * Referencing the User model
+   
+   * Comment - User
