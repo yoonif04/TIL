@@ -10,10 +10,6 @@
 
 4. Array와 Object
 
-
-
-
-
 ## 1. JavaScript 시작하기
 
 ----
@@ -67,8 +63,6 @@
    * Node.js로 실행하기
      
      * 웹 브라우저를 이용하지 않고 JavaScript를 실행할 수 있음(엔진이 있으니까)
-
-
 
 ## 2. JavaScript 기초 문법
 
@@ -190,7 +184,13 @@
      
      * 실제 실행시에 코드의 최상단으로 끌어 올려지게 됨, var로 선언된 변수는 선언시에 undefined로 값이 초기화되는 
    
-   * 변수 선언 키워드 정리
+   * **변수 선언 키워드 정리**
+     
+     | 키워드       | 재선언 | 재할당 | 스코프    | 비고       |
+     | --------- | --- | --- | ------ | -------- |
+     | **let**   | X   | O   | 블록 스코프 | ES6부터 도입 |
+     | **const** | X   | X   | 블록 스코프 | ES6부터 도입 |
+     | **var**   | O   | O   | 함수 스코프 | 사용X      |
 
 3. 데이터 타입
    
@@ -199,6 +199,10 @@
      * JavaScript의 모든 값은 특정한 데이터 타입을 가짐
      
      * 크게 원시 타입(Primitive type)과 참조 타입(Reference type)으로 분류됨
+     
+     * Primitive type: Number, String, Boolean, undefined, null, Symbol
+     
+     * Reference type: Objects - Array, Function, ...
    
    * **Number**
      
@@ -279,6 +283,14 @@
        * 조건문 또는 반복문에서 boolean이 아닌 데이터 타입 -> 자동 형변환 ㄴ규칙에 따라 true 또는 false
    
    * ToBoolean Conversions(자동 형변환)
+     
+     | 데이터 타입    | false      | true    |
+     | --------- | ---------- | ------- |
+     | undefined | 항상 false   | X       |
+     | null      | 항상 false   | X       |
+     | Number    | 0, -0, NaN | 나머지     |
+     | String    | 빈 문자열      | 나머지     |
+     | Object    | X          | 항상 true |
 
 4. **연산자**
    
@@ -295,6 +307,7 @@
    * 비교 연산자
      
      * 피연산자들(숫자, 문자, Boolean 등)을 비교하고 결과값을 boolean으로 반환하는 연산자
+     * 문자열 -> 유니코드 값 사용 표준 사전 순서 기반 비교
    
    * **동등 연산자 (==)**
      
@@ -320,11 +333,11 @@
      
      * 세가지 논리 연산자
        
-       * and 연산 : '&&'
+       * and 연산 : '**&&**'
        
-       * or 연산: '||'
+       * or 연산: '**||**'
        
-       * not 연산 '!'
+       * not 연산 '**!**'
      
      * 단축 평가 지원
    
@@ -332,7 +345,7 @@
      
      * 3개의 피연산자를 사용하여 조건에 따라 값을 반환하는 연산자
      
-     * 조건식 ? 값1 : 값2
+     * **조건식 ? 값1 : 값2**
      
      * 가장 앞의 조건식이 참이면 :(콜론) 앞의 값, 반대일 경우 뒤의 값 반환
      
@@ -348,11 +361,13 @@
      
      * switch statement
        
-       * 조건 표현식의 결
+       * 조건 표현식의 결과값이 어느 값(case)에 해당하는지 판별
+       * 주로 특정 변수의 값에 따라 조건을 분기할 때 활용
+         * 조건이 많아질 경우 if문보다 가독성이 나을 수 있음
    
-   * if statement
+   * **if statement**
      
-     * if, else if, else
+     * **if, else if, else**
        
        * 조건은 소괄호(condition)안에 작성
        
@@ -360,13 +375,17 @@
        
        * 블록 스코프 생성
    
-   * switch statement
+   * **switch statement**
      
      * 표현식의 결과값을 이용한 조건문
      
      * 표현식의 결과값과 case문의 오른쪽 값을 비교
      
      * break 및 default문은 [선택적]으로 사용 가능
+     
+     * break문이 없는 경우 -> break문을 만나거나 default문을 실행할 때까지 다음 조건문 실행
+     
+     * 블록 스코프 생성
    
    * if / switch
      
@@ -374,7 +393,7 @@
      
      * 일반적으로 중첩 else if문은 유지보수하기 힘들다는 문제도 있음
 
-6. 반복문
+6. **반복문**
    
    * 반복문 종류
      
@@ -389,10 +408,16 @@
    * **while** : 조건문이 참이기만하면 문장을 계속해서 수행
    
    * **for** : 특정한 조건이 거짓으로 판별될 때까지 반복
+     
+     ```javascript
+     for ([초기문]; [조건문]; [증감문]){
+         // do something
+     }
+     ```
    
    * **for...in**
      
-     * 객체(object)의 속성을 순회할 때 사용
+     * 객체(object)의 **속성을 순회**할 때 사용
      
      * 배열도 순회 가능하지만 <u>인덱스 순으로 순회한다는 보장이 없으므로 권장X</u>
    
@@ -407,16 +432,33 @@
      * **for...in** : 속성 **이름**을 통해 반복
      
      * **for...of** : 속성 **값**을 통해 반복
+     
+     ```javascript
+     const arr = [3, 5, 7]
+     for (const i in arr){
+         console.log(i) // 0 1 2
+     }
+     for (const i of arr){
+         console.log(i) // 3 5 7
+     }
+     ```
    
-   * [참고] for...in, for...of와 const
+   * **[참고] for...in, for...of와 const**
      
      * 재할당이 아니라, 매 반복 시 해당 변수를 새로 정의하여 사용 -> 에러 발생X
      
-     * 일반적인 for문의 경우에는 최초 정의한 i를 재할당하면서 사용 -> 에러
+     * 일반적인 for문의 경우에는 최초 정의한 i를 재할당 const 사용 -> 에러
    
    * 조건문과 반복문 정리
-
-
+     
+     | 키워드      | 종류  | 연관 키워드               | 스코프    |
+     | -------- | --- | -------------------- | ------ |
+     | if       | 조건문 | -                    | 블록 스코프 |
+     | switch   | 조건문 | case, break, default | 블록 스코프 |
+     | while    | 반복문 | break, continue      | 블록 스코프 |
+     | for      | 반복문 | break, continue      | 블록 스코프 |
+     | for...in | 반복문 | 객체 순회                | 블록 스코프 |
+     | for...of | 반복문 | Iterable 순회          | 블록 스코프 |
 
 ## 3. 함수
 
@@ -437,6 +479,12 @@
    * **함수 선언식 (Function delaration)**
      
      * 일반적인 프로그래밍 언어의 함수 정의 방식
+     
+     ```javascript
+     function function_name() {
+         // do something
+     }
+     ```
    
    * **함수 표현식 (Function expression)**
      
@@ -447,6 +495,12 @@
      * 함수 이름을 명시하는 것도 가능
      
      * 다만 이 경우 함수 이름은 호출에 사용되지 못하고 -> 디버깅 용도로 사용됨
+     
+     ```javascript
+     변수키워드 함수명 = function() {
+         // do something
+     }
+     ```
    
    * **기본 인자 (Default arguments)**
      
@@ -462,13 +516,25 @@
      
      * 전개 구문
      
-     * 전개 구문을 사용하면 배열이나 문자열과 같이 반복 가능한 객체를 배열의 경우는 요소, 함수의 경우는 인자로 확장 가능
+     * 전개 구문을 사용하면 배열이나 문자열과 같이 반복 가능한 객체를 **배열의 경우는 요소, 함수의 경우는 인자로 확장** 가능
        
        * 배열과의 사용
-       
-       * 함수와의 사용 (Rest parameters)
          
-         *  The rest parameter syntax를 사용하여 <u>정해지지 않은 수의 매개변수</u>를 배열로 받을 수 있음
+         ```javascript
+         let parts = ['shoulders', 'knees']
+         let lyrics = ['head', ...parts, 'and', 'toes']
+         // ['head', 'shoulders', 'knees', 'and', 'toes']
+         ```
+       
+       * 함수와의 사용 (**Rest parameters**)
+         
+         * The rest parameter syntax를 사용하여 <u>정해지지 않은 수의 매개변수</u>를 배열로 받을 수 있음
+         
+         ```javascript
+         function func_name(a, b, ...theArgs){
+             //
+         }
+         ```
 
 2. **선언식과 표현식**
    
@@ -483,26 +549,42 @@
      * 함수 표현식으로 정의된 함수 -> 변수로 평가되어 변수의 scope 규칙을 따름
    
    * 선언식과 표현식 정리
+     
+     |     | 선언식 (declaration)               | 표현식 (expression)         |
+     | --- | ------------------------------- | ------------------------ |
+     | 공통점 | 데이터 타입, 함수 구성 요소 (이름, 매개변수, 바디) |                          |
+     | 차이점 | 익명 함수 불가능 <br>호이스팅 있음           | 익명 함수 가능<br>호이스팅 없음      |
+     | 비고  |                                 | Airbnb Style Guide 권장 방식 |
 
-3. Arrow Function
+3. **Arrow Function**
    
-   * 화살표 함수 (Arrow Function)
+   * **화살표 함수 (Arrow Function)**
      
      * 함수를 비교적 간결하게 정의할 수 있는 문법
      
-     * function 키워드와 중괄호를 이용한 구문을 짧게 사용하기 위해 탄생
+     * function 키워드와 중괄호를 이용한 **구문을 짧게** 사용하기 위해 탄생
        
-       * function 키워드 생략가능
+       * **function** 키워드 **생략**가능
        
        * 함수의 매개변수가 하나 -> '()' 생략 가능
        
-       * 한수의 내용이 한 줄 -> '{}'와 'return' 도 생략 가능
+       * **함수**의 내용이 **한 줄** -> **'{}'와 'return' 도 생략** 가능
      
-     * 화살표 함수는 항상 익명 함수
-       
-       * 함수 표현식에서만 사용가능
+     * 화살표 함수는 항상 익명 함수 --> <u>함수 표현식</u>에서만 사용가능
      
      * 화살표 함수 (Arrow Function) 예시
+       
+       ```javascript
+       const arrow1 = function (name) {
+           return `hello, ${name}`
+       }
+       // 1. function 키워드 삭제
+       const arrow2 = (name) => {return `hello, ${name}`}
+       // 2. 인자가 1개일 경우에만 () 생략 가능
+       const arrow3 = name => {return `hello, ${name}`}
+       // 3. 함수 바디가 return을 포함한 표현식 1개일 경우에 {} & return 삭
+       const arrow4 = name => `hello, ${name}`
+       ```
      
      * 응용
        
@@ -528,8 +610,6 @@
      
      * 일회성 함수이므로, 익명함수로 사용하는 것이 일반적
 
-
-
 ## 4. Array와 Object
 
 ---
@@ -552,9 +632,34 @@
      
      * 마지막 원소는 array.length-1로 접근
 
-2. 배열 메서드 기초
+2. **배열 메서드 기초**
    
    * 배열 메서드 기초
+     
+     | 메서드             | 설명                           | 비고              |
+     | --------------- | ---------------------------- | --------------- |
+     | reverse         | 원본 배열의 요소들의 순서를 반대로 정렬       |                 |
+     | push & pop      | 배열의 가장 뒤에 요소를 추가 또는 제거       |                 |
+     | unshift & shift | 배열의 가장 앞에 요소를 추가 또는 제거       |                 |
+     | includes        | 배열에 특정 값이 존재하는지 판별 후 참/거짓 반환 |                 |
+     | indexOf         | 배열에 특정 값이 존재하는지 판별 후 인덱스 반환  | 요소가 없을 경우 -1 반환 |
+     | join            | 배열의 모든 요소를 구분자를 이용하여 연결      | 구분자 생략 시 쉼표 기준  |
+   
+   ```javascript
+   const numbers = [1, 2, 3, 4, 5]
+   numbers.reverse()
+   console.log(numbers) // [5, 4, 3, 2, 1]
+   const numbers = [1, 2, 3, 4, 5]
+   numbers.push(100)
+   console.log(numbers) // [1, 2, 3, 4, 5, 100]
+   numbers.pop()
+   console.log(numbers) // [1, 2, 3, 4, 5]
+   console.log(numbers.includes(1)) // true
+   console.log(numbers.includes(100)) // false
+   console.log(numbers.indexof(3)) // 2
+   console.log(numbers.indexof(100)) // -1
+   console.log(numbers.join()) // 1, 2, 3, 4, 5
+   ```
 
 3. 배열 메서드 심화
    
@@ -565,6 +670,16 @@
      * 메서드 호출 시 인자로 callback 함수를 받는 것이 특징
        
        * callback 함수: 어떤 함수의 내부에서 실행될 목적으로 인자로 넘겨받는 함수
+     
+     | 메서드     | 설명                                             | 비고    |
+     | ------- | ---------------------------------------------- | ----- |
+     | forEach | 배열의 각 요소에 대해 콜백 함수를 한번씩 실행                     | 반환 값X |
+     | map     | **콜백 함수의 반환 값**을 요소로 하는 **새로운 배열 반환**          |       |
+     | filter  | **콜백 함수의 반환 값**이 **참인 요소들**만 모아서 **새로운 배열 반환** |       |
+     | reduce  | **콜백 함수의 반환 값**들을 **하나의 값(acc)에 누적** 후 반환      |       |
+     | find    | **콜백 함수의 반환 값**이 **참이면 해당 요소를 반환**             |       |
+     | some    | 배열의 요소 중 **하나라도 판별 함수를 통과**하면 **참**을 반환        |       |
+     | every   | 배열의 **모든 요소가 판별 함수를 통과**하면 **참**을 반환           |       |
    
    * **Array Helper Methods - forEach**
      
@@ -581,6 +696,13 @@
          * array: 배열 자체
      
      * 반환 값(return) 없음
+     
+     ```javascript
+     const colors = ['red', 'blue', 'green']
+     colors.forEach((color) => {
+         return console.log(color) 
+     })
+     ```
    
    * **Array Helper Methods - map**
      
@@ -593,6 +715,14 @@
      * 기존 배열 전체를 다른 형태로 바꿀 때 유용
        
        * forEach + return
+     
+     ```javascript
+     const numbers = [1, 2, 3]
+     const doubleNumbers = numbers.map((number) => {
+         return number * 2
+     ))
+     console.log(doubleNumbers) // [2, 4, 6]
+     ```
    
    * **Array Helper Methods - filter**
      
@@ -603,6 +733,18 @@
      * 콜백 함수의 반환값이 참인 요소들만 모아서 새로운 배열 반환
      
      * 기존 배열의 요소들을 필터링할 때 유용
+     
+     ```javascript
+     const products = [
+         {name: 'cucumbre', type: 'vegetable'},
+         {name: 'banana', type: 'fruit'},
+         {name: 'carrot', type: 'vegetable'},
+         {name: 'apple', type: 'fruit'},
+     ]
+     const fruits = products.filter((product) => {
+         return product.type === 'fruit'
+     })
+     ```
    
    * **Array Helper Methods - reduce**
      
@@ -622,7 +764,17 @@
          
          * 최초 callback 함수 호출 시 acc에 할당되는 값, default값은 배열의 첫번째 값
      
-     * reduce의 첫번째 매개변수인 콜백함수의 첫번째 매개변수(acc)는 누적된 값(전 단계까지의)
+     * reduce의 첫번째 매개변수인 콜백함수의 첫번째 매개변수(acc)는 누적된 값(전 단계까지의 결과)
+     
+     * reduce의 두번째 매개변수인 initialValue는 누적될 값의 초기값, 지정하지 않을 시 첫번째 요소의 값이 됨
+     
+     * 빈 배열의 경우 initialValue를 제공하지 않으면 에러 발생
+     
+     ```javascript
+     const tests = [90, 90, 80, 77]
+     const sum = tests.reduce((total, x) => total + x, 0)
+     const avg = tests.reduce((total, x) => total + x, 0) / tests.length
+     ```
    
    * **Array Helper Methods - find**
      
@@ -633,6 +785,17 @@
      * 콜백 함수의 반환 값이 참이면, 조건을 만족하는 첫번째 요소 반환
      
      * 찾는 값이 배열에 없으면 -> undefined 반환
+     
+     ```javascript
+     const avengers = [
+         {name: 'Tony Stark', age: 45},
+         {name: 'Steve Rogers', age: 32},
+         {name: 'Thor', age: 40},
+     ]
+     const avenger = avengers.find((avenger) => {
+         return avenger.name === 'Tony Stark'
+     })
+     ```
    
    * **Array Helper Methods - some**
      
@@ -643,6 +806,13 @@
      * 모든 요소가 통과하지 못하면 거짓 반환
      
      * 빈 배열은 항상 false 반환
+     
+     ```javascript
+     const arr = [1, 2, 3, 4, 5]
+     const result = arr.some((elem) => {
+         return elem % 2 === 0
+     })
+     ```
    
    * **Array Helper Methods - every**
      
@@ -653,12 +823,27 @@
      * 하나의 요소라도 통과X -> 거짓 반환
      
      * 빈 배열 -> 항상 true 반환
+     
+     ```javascript
+     const arr = [1, 2, 3, 4, 5]
+     const result = arr.every((elem) => {
+         return elem % 2 === 0
+     })
+     ```
+   
+   * 배열 순회 비교
+     
+     | 방식       | 특징                                                                             | 비고                           |
+     | -------- | ------------------------------------------------------------------------------ | ---------------------------- |
+     | for loop | - 모든 브라우저 환경에서 지원<br>- 인덱스를 활용하여 배열의 요소에 접근<br>- break, continue 사용 가능         |                              |
+     | for...of | - 일부 오래된 브라우저 환경에서 지원X<br>- 인덱스 없이 배열의 요소에 바로 접근 가능<br>- break, continue 사용 가능 |                              |
+     | forEach  | - 대부분의 브라우저 환경에서 지원<br>- break, continue 사용 불가능                                | Airbnb Style Guide <br>권장 방식 |
 
 4. **객체 (Object)**
    
    * 개요
      
-     * 객체는 속성(property)의 집합이며, 중괄호 내부에 key와 value의 쌍으로 표현
+     * 객체는 속성(property)의 집합이며, 중괄호 내부에 **key와 value의 쌍**으로 표현
      
      * key는 문자열 타입만 가능
        
@@ -666,7 +851,7 @@
      
      * value는 모든 타입(함수포함) 가능
      
-     * 객체 요소 접근은 점(.) 또는 대괄호([])로 가능
+     * 객체 요소 접근은 **점(.) 또는 대괄호([])** 로 가능
        
        * key 이름에 띄어쓰기 같은 구분자가 있으면 대괄호 접근만 가능
    
@@ -674,28 +859,98 @@
      
      * ES6 문법 익히기
        
-       * 속성명 축약
+       * **속성명 축약**
          
          * 객체를 정의할 때 key와 할당하는 변수의 이름이 같으면 축약 가능
+         
+         ```javascript
+         const books = ['Learning JavaScript', 'Learning Python']
+         const magazines = ['Vogue', 'Science']
+         const bookShop = {
+             books,
+             magazines
+         }
+         // books: books,
+         // magazines: magazines
+         ```
        
        * 메서드명 축약
          
          * 메서드 선언 시 function 키워드 생략 가능
+         
+         ```javascript
+         const obj = {
+             greeting() {
+             console.log('Hi!')
+             }
+         }
+         ```
        
-       * 계산된 속성명 사용하기
+       * **계산된 속성명 사용하기(computed property name)**
          
          * 객체를 정의할 때 key의 이름을 표현식을 이용하여 동적으로 생성 가능
+         
+         ```javascript
+         const key = 'country'
+         const value = ['한국', '미국', '일본', '중국']
+         const myObj = {
+             [key]: value,
+         }
+         console.log(myObj)
+         // {country: ['한국', '미국', '일본', '중국']}
+         ```
        
-       * 구조 분해 할당
+       * **구조 분해 할당(destructing assignment)**
          
          * 배열 또는 객체를 분해하여 속성을 변수에 쉽게 할당할 수 있는 문법
+         
+         ```javascript
+         const userInformation = {
+             name: 'ssafy kim',
+             userId: 'ssafyStudent1234',
+             phoneNumber: '010-1234-1234',
+             email: 'ssafy@ssafy.com'
+         }
+         const {name, userId} = userInformation
+         ```
        
-       * 객체 전개 구문(Spread Operator)
+       * **객체 전개 구문(Spread Operator)**
          
          * 배열과 마찬가지로 전개구문을 사용해 객체 내부에서 객체 전개 가능
          
          * 얕은 복사에 활용 가능
+         
+         ```javascript
+         const obj = {b:2, c:3, d:4}
+         const newObj = {a:1, ...obj, e:5}
+         console.log(newObj) // {a:1, b:2, c:3, d:4, e:5}
+         ```
      
      * JSON
-
-
+       
+       * JavaScript Object Notation
+       
+       * Key-Value 형태로 이루어진 자료 표기법
+       
+       * JavaScript의 Object와 유사한 구조를 가지고 있지만, Object는 그 자체로 타입이고, JSON은 형식이 있는 "문자열"
+       
+       * JSON을 Object로 사용하기 위해서는 변환 작업 필요
+     
+     * JSON 변환
+       
+       ```javascript
+       const jsObject = {
+           coffee: 'Americano',
+           iceCream: 'Cookie and cream'
+       }
+       // Object -> JSON
+       const objToJson = JSON.stringify(jsObject)
+       // JSON -> Object
+       const jsonToObj = JSON.parse(objToJson)
+       ```
+     
+     * [참고] 배열은 객체다
+       
+       * 배열: 키와 속성들을 담고 있는 참조 타입의 객체
+       
+       * 배열은 인덱스를 키로 가지며 length 프로퍼티를 갖는 특수한 객체
