@@ -83,11 +83,11 @@
    
    * **window의 메서드 예시**
      
-     * 새 탭 열기: window.open()
+     * 새 탭 열기: **window.open()**
      
-     * 경고 대화 상자 표시: window.alert()
+     * 경고 대화 상자 표시: **window.alert()**
      
-     * 인쇄 대화 상자 표시: window.print()
+     * 인쇄 대화 상자 표시: **window.print()**
    
    * **document** object
      
@@ -327,37 +327,37 @@
    
    * **전역 문맥에서의 this**
      
-     * 브라우저의 전역 객체인 window를 가리킴
+     * 브라우저의 전역 객체인 **window**를 가리킴
        
-       * 전역객체는 모든 객체의 유일한 최상위 객체를 의미
+       * 전역객체는 모든 객체의 유일한 **최상위 객체**를 의미
    
-   * 함수 문맥에서의 this
+   * **함수 문맥에서의 this**
      
      * 함수의 this 키워드 -> 다른 언어와 조금 다르게 동작
      
-     * this의 값 -> 함수를 호출한 방법에 의해 결정됨
+     * this의 값 -> **함수를 호출한 방법에 의해 결정됨**
      
      * 함수 내부에서 this의 값 -> 함수를 호출한 방법에 의해 좌우됨
      
      * **단순 호출**
        
-       * 전역 객체를 가리킴
+       * **전역 객체**를 가리킴
        
-       * 전역은 브라우저에서는 window, Node.js는 global을 의미
+       * 전역은 **브라우저에서는 window**, **Node.js는 global**을 의미
      
-     * Method (Function in Object, 객체의 메서드로서)
+     * **Method (Function in Object, 객체의 메서드로서)**
        
-       * 메서드로 선언하고 호출한다면, 객체의 메서드이므로 해당 객체가 바인딩
+       * 메서드로 선언하고 호출한다면, 객체의 메서드이므로 **해당 객체가 바인딩**
      
-     * Nested (Function 키워드)
+     * **Nested (Function 키워드)**
        
        * forEach의 콜백 함수에서의 this가 메서드의 객체를 가리키지 못하고 전역 객체 window를 가리킴
        
-       * 단순호출 방식으로 사용되었지 ㄸ문
+       * 단순호출 방식으로 사용되었기 때문
        
        * 이를 해결하기 위해 등장한 함수표현식이 바로 화살표함수
      
-     * Nested (화살표 함수)
+     * **Nested (화살표 함수)**
        
        * 메서드의 객체를 잘 가리킴
        
@@ -365,4 +365,22 @@
        
        * 자동으로 한단계 상위의 scope의 context를 바인딩
      
-     * 
+     * **화살표 함수**
+       
+       * 호출의 위치와 상관없이 상위 스코프를 가리킴(Lexical scope this)
+       
+       * Lexical scope
+         
+         * 함수를 어디서 호출하는지가 아니라 어디에 선언하였는지에 따라 결정
+         
+         * Static scope라고도하며 대부분의 프로그래밍 언어에서 따르는 방식
+       
+       * 함수 내의 함수 상황에서 화살표 함수를 쓰는 것을 권장
+   
+   * **this와 addEventListener**
+     
+     * **addEventListener**에서의 **콜백 함수** -> **function 키워드**의 경우 -> addEventListener를 **호출한 대상(event.target)** 을 뜻함
+     
+     * 화살표 함수의 경우 상위 스코프 지칭 -> window 객체 바인딩
+     
+     * addEventListener의 콜백 함수 -> function 키워드 사용

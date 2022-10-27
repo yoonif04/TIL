@@ -56,13 +56,13 @@
    
    * 브라우저 환경에서의 비동기 동작의 **구성요소**
      
-     * JavaScript Engine의 Call Stack
+     * JavaScript Engine의 **Call Stack**
      
-     * Web Api
+     * **Web Api**
      
-     * Task Queue
+     * **Task Queue**
      
-     * Event Loop
+     * **Event Loop**
 
 3. **비동기 처리 동작 방식**
    
@@ -202,21 +202,19 @@
      
      * 각각의 callback은 주어진 **순서대로** 하나하나 실행
 
-
-
 ## 5. AJAX
 
 ----
 
-1. AJAX란?
+1. **AJAX란?**
    
    * 비동기 통신 웹 개발 기술(Asynchronous Javascript And XML(AJAX))
    
-   * AJAX의 특징
+   * AJAX의 **특징**
      
-     * 페이지 새로고침 없이 서버에 요청
+     * 페이지 **새로고침 없이** 서버에 요청
      
-     * 서버로부터 응답(데이터)을 받아 작업을 수행
+     * 서버로부터 **응답(데이터)을 받아 작업을 수행**
    
    * 비동기 웹 통신을 위한 라이브러리 중 하나 -> Axios
 
