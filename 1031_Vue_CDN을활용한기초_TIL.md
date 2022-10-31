@@ -30,7 +30,7 @@
    
    * What is Front-end Development?
      
-     * Front-end Framework
+     * **Front-end Framework**
        
        * Front-end(FE) 개발이란?: 사용자에게 보여주는 화면 만들기
        
@@ -176,7 +176,7 @@
        
        * Vue data -> Dom 반영
 
-5. [참고] Devtools 확인
+5. **[참고] Devtools 확인**
    
    * vue devtools에서 data 변경 -> DOM 반영
    
@@ -188,17 +188,17 @@
 
 ----
 
-1. MVVM Pattern
+1. **MVVM Pattern**
    
    * 소프트웨어 아키텍처 패턴의 일종
    
-   * 마크업 언어로 구현하는 그래픽 사용자 인터페이스(view)의 개발을 Back-end(model)로부터 분리시켜 view가 어느 특정한 모델 플렛폼에 종속되지 않도록 함
+   * 마크업 언어로 구현하는 그래픽 사용자 인터페이스(**view**)의 개발을 Back-end(**model**)로부터 분리시켜 view가 어느 특정한 모델 플렛폼에 종속되지 않도록 함
    
-   * View - 우리 눈에 보이는 부분 = DOM
+   * **View** - 우리 눈에 보이는 부분 = DOM
    
-   * Model - 실제 데이터 = JSON
+   * **Model** - 실제 데이터 = JSON
    
-   * View Model (Vue)
+   * **View Model** (Vue)
      
      * View를 위한 Model
      
@@ -213,6 +213,8 @@
    * MVC 패턴에서 Controller 제외하고 View Model을 넣은 패턴
    
    * View와 Model 서로 모른다. (독립성 증가, 적은 의존성) 
+     
+     * DOM와 Data 서로 모른다
 
 3. **Vue instance**
    
@@ -230,7 +232,9 @@
    
    * **[참고] 생성자 함수**
      
-     * new 연산자로 사용하는 함수
+     * 동일한 구조의 객체를 여러개 만들고 싶을 때
+     
+     * **new** 연산자로 사용하는 함수
      
      * 함수 이름은 반드시 대문자로 시작
      
@@ -250,7 +254,7 @@
 
 5. **data**
    
-   * Vue instance의 데이터 객체 혹은 인스턴스 속성
+   * Vue instance의 **데이터 객체** 혹은 **인스턴스 속성**
    
    * 데이터 객체는 반드시 기본 객체 **{ } (Object)** 여야 함
    
@@ -262,7 +266,7 @@
 
 6. **methods**
    
-   * Vue instance의 method들을 정의하는 곳
+   * Vue instance의 **method**들을 정의하는 곳
    
    * methods 객체 정의
    
@@ -273,6 +277,10 @@
      * 객체 내 bye method 정의
    
    * 콘솔창에서 app.bye() 실행
+     
+     * DOM에 바로 변경된 결과 반영
+     
+     * Vue의 강력한 반응성(reactivity)
    
    * **[주의] methods with Arrow Function**
      
@@ -288,7 +296,7 @@
 
 ----
 
-1. Template Syntax
+1. **Template Syntax**
    
    * Vue2 guide > template syntax 참고
    
@@ -296,7 +304,7 @@
      
      * 렌더링 된 DOM - 브라우저에 의해 보기 좋게 그려질 HTML 코드
      
-     * HTML 기반 template syntax : HTML 코드에 직접 작성할 수 있는 문법 제공
+     * HTML 기반 template syntax - HTML 코드에 직접 작성할 수 있는 문법 제공
      
      * 선언적으로 바인딩 - Vue instance와 DOM을 연결
 
@@ -318,11 +326,11 @@
    
    * HTML의 기본 속성이 아닌 Vue가 제공하는 특수 속성의 값으로 data를 작성
 
-4. [참고] JS 표현식
+4. **[참고] JS 표현식**
    
    * 표현식 형태로 작성 가능
 
-5. Directives
+5. **Directives**
    
    * 기본 구성
      
@@ -332,15 +340,15 @@
      
      * directive의 역할은 **표현식의 값**이 **변경**될 때 **반응적**으로 DOM에 적용하는 것
      
-     * ':' 을 통해 전달인자를 받을 수 있음
+     * '**:**' 을 통해 전달인자를 받을 수 있음
      
-     * '.' 으로 표시되는 특수 접미사 - directive를 특별한 방법으로 바인딩해야 함
+     * '**.**' 으로 표시되는 특수 접미사 - directive를 특별한 방법으로 바인딩해야 함
    
    * **v-text**
      
      * Template Interpolation과 함께 가장 기본적인 바인딩 방법
      
-     * {{ }} 와 동일한 역할
+     * **{{ }} 와 동일**한 역할
    
    * **v-html**
      
@@ -374,15 +382,15 @@
    
    * **v-show VS v-if**
      
-     * v-show (Expensive initial load, cheap toggle)
+     * **v-show** (Expensive initial load, cheap toggle)
        
-       * 표현식 결과와 관계 없이 렌더링 -> 초기 렌더링에 필요한 비용은 v-if 보다 높을 수 있음
+       * 표현식 결과와 관계 없이 렌더링 -> **초기 렌더링에 필요한 비용**은 v-if 보다 **높을 수 있음**
        
-       * display 속성 변경으로 표현 여부 판단 -> 렌더링 후 toggle 비용 적음
+       * display 속성 변경으로 표현 여부 판단 -> 렌더링 후 **toggle 비용 적음**
      
-     * v-if (Cheap initial load, expensive toggle)
+     * **v-if** (Cheap initial load, expensive toggle)
        
-       * 표현식 결과가 false -> 렌더링조차 되지 않음 -> 초기 렌더링 비용은 v-show 보다 낮을 수 있음
+       * 표현식 결과가 false -> 렌더링조차 되지 않음 -> **초기 렌더링 비용**은 v-show 보다 **낮을 수 있음**
        
        * 단, 표현식 값이 자주 변경되는 경우 잦은 재 렌더링 -> 비용 증가
    
@@ -398,7 +406,7 @@
      
      * 각 요소가 **객체**라면 **dot notation**으로 접근 가능
      
-     * 객체 순회 시 value가 할당되어 출력
+     * **객체 순회 시 value가 할당**되어 출력
        
        * 2번째 변수 할당 시 key 출력 가능
    
@@ -414,13 +422,15 @@
      
      * 각 요소가 고유한 값을 가지고 있지 않다면 생략 가능
    
-   * v-on
+   * **v-on**
      
-     * ':' 을 통해 전달받은 인자를 확인
+     * '**:**' 을 통해 전달받은 인자를 확인
      
      * 값으로 JS 표현식 작성
      
      * addEventListener의 첫번째 인자와 동일한 값들로 구성
+     
+     * 대기하고 있던 이벤트가 발생하면 할당된 표현식 실행
      
      * method를 통한 data 조작도 가능
      
@@ -430,7 +440,7 @@
        
        * ex) v-on:keyup.enter 등
      
-     * '@' shortcut 제공
+     * '**@**' shortcut 제공
    
    * **v-bind**
      
@@ -438,19 +448,19 @@
      
      * class의 경우 다양한 형태로 연결 가능
        
-       * 조건부 바인딩
+       * **조건부 바인딩**
          
          * {'class Name': '조건 표현식'}
          
          * 삼항 연산자도 가능
        
-       * 다중 바인딩
+       * **다중 바인딩**
          
          * ['JS 표현식', 'JS 표현식', ...]
      
      * Vue data의 변화에 반응하여 DOM에 반영하므로 상황에 따라 유동적 할당
      
-     * ':' shortcut 제공
+     * '**:**' shortcut 제공
    
    * **v-model**
      
@@ -484,9 +494,9 @@
      
      * 종속 대상이 변하지 않으면 항상 저장(캐싱)된 값을 반환
 
-3. watch
+3. **watch**
    
-   * 특정 데이터의 변화를 감지하는 기능
+   * 특정 데이터의 **변화를 감지**하는 기능
      
      * watch 객체를 정의
      
@@ -500,15 +510,15 @@
      
      * 실행하고자 하는 method를 handler에 문자열 형태로 할당
    
-   * Array, Object의 내부 요소 변경을 감지하기 위해서는 deep 속성 추가 필요
+   * Array, Object의 내부 요소 변경을 감지하기 위해서는 **deep** 속성 추가 필요
 
-4. filters
+4. **filters**
    
    * 텍스트 형식화를 적용할 수 있는 필터
    
    * interpolation 혹은 v-bind를 이용할 때 사용 가능
    
-   * 필터는 자바스크립트 표현식 마지막에 '|' (파이스)와 함께 추가되어야 함
+   * 필터는 자바스크립트 표현식 마지막에 '**|**' (파이프)와 함께 추가되어야 함
    
    * chaining 가능
 
