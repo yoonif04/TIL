@@ -10,8 +10,6 @@
 
 4. Articles app with Vue
 
-
-
 ## 1. UX&UI
 
 -----
@@ -91,8 +89,6 @@
      * 설계와 기획이 끝난 후 개발을 시작해야 체계적인 진행 가능
    
    * 프로젝트와 협업
-
-
 
 ## 2. Vue Router
 
@@ -304,43 +300,43 @@
 
 1. 네비게이션 가드
    
-   * Vue router를 통해 특정 URL에 접근할 때 다른 url로 redirect를 하거나 해당 URL로의 접근을 막는 방법
+   * Vue router를 통해 특정 URL에 접근할 때 **다른 url로 redirect**를 하거나 **해당 URL로의 접근을 막는** 방법
      
      * ex) 사용자의 인증 정보가 없으면 특정 페이지에 접근하지 못하게 함
    
-   * 네비게이션 가드의 종류
+   * 네비게이션 가드의 **종류**
      
-     * 전역 가드: 애플리케이션 전역에서 동작
+     * **전역 가드**: 애플리케이션 전역에서 동작
      
-     * 라우터 가드: 특정 URL에서만 동작
+     * **라우터 가드**: 특정 URL에서만 동작
      
-     * 컴포넌트 가드: 라우터 컴포넌트 안에 정의
+     * **컴포넌트 가드**: 라우터 컴포넌트 안에 정의
 
-2. 전역 가드
+2. **전역 가드**
    
-   * Global Before Guard
+   * **Global Before Guard**
      
-     * 다른 url 주소로 이동할 때 항상 실행
+     * **다른 url 주소로 이동할 때** 항상 실행
      
-     * router/index.js에 router.beforeEach() 를 사용하여 설정
+     * router/index.js에 **router.beforeEach()** 를 사용하여 설정
      
-     * 콜백 함수의 값으로 3개의 인자를 받음
+     * 콜백 함수의 값으로 **3개의 인자**를 받음
        
-       * to: 이동할 URL 정보가 담긴 Route 객체
+       * **to**: **이동**할 URL 정보가 담긴 Route **객체**
        
-       * from: 현재 URL 정보가 담긴 Route 객체
+       * **from**: **현재** URL 정보가 담긴 Route **객체**
        
-       * next: 지정한 URL로 이동하기 위해 호출하는 함수
+       * **next**: **지정한** URL로 이동하기 위해 호출하는 **함수**
          
-         * 콜백 함수 내부에서 반드시 한번만 호출되어야 함
+         * 콜백 함수 내부에서 **반드시 한번만 호출**되어야 함
          
-         * 기본적으로 to에 해당하는 URL로 이동
+         * 기본적으로 **to**에 해당하는 URL로 이동
      
-     * URL이 변경되어 화면 전환 전 router.beforeEach() 호출
+     * URL이 변경되어 **화면 전환 전** router.beforeEach() 호출
        
-       * 화면 전환되지 않고 대기 상태
+       * 화면 전환되지 않고 **대기 상태**
      
-     * 변경된 URL로 라우팅하기 위해서는 next() 호출해줘야 함
+     * 변경된 URL로 **라우팅하기 위해서는 next() 호출**해줘야 함
        
        * next()가 호출되기 전까지 화면 전환X
    
@@ -348,6 +344,108 @@
    
    * Login 여부에 따른 라우팅 처리
 
+3. **라우터 가드**
+   
+   * **특정 route**에 대해서만 가드를 설정하고 싶을 때
+   
+   * **beforeEnter()**
+     
+     * route에 진입했을 때 실행됨
+     
+     * <u>라우터를 등록한 위치에 추가</u>
+     
+     * 단 매개변수, 쿼리, 해시 값이 변경될 때는 실행되지X, **다른 경로에서 탐색**할 때만 실행됨
+     
+     * 콜백 함수는 to, from, next를 인자로 받음
+   
+   * Login 여부에 따른 라우팅 처리
 
+4. **컴포넌트 가드**
+   
+   * 특정 컴포넌트 내에서 가드를 지정하고 싶을 때
+   
+   * **beforeRouteUpdate()**
+     
+     * 해당 컴포넌트를 **렌더링하는 경로가 변경될 때** 실행 
+   
+   * **params 변화 감지**
+     
+     * URL은 변하지만 페이지는 변화하지 않음
+     
+     * 변화하지 않는 **이유**
+       
+       * **컴포넌트가 재사용**되었기 때문
+       
+       * 기존 컴포넌트를 지우고 새로 만드는 것보다 효율적
+         
+         * 단, lifecycle hook이 호출되지 X
+         
+         * 따라서 \$route.params에 있는 데이터를 새로 가져오지 X
+     
+     * beforeRouteUpdate()를 사용해서 처리
+       
+       * userName을 이동할 params에 있는 userName으로 재할당
+
+5. **404 Not Found**
+   
+   * 사용자가 **요청한 리소스가 존재하지 않을 때** 응답
+   
+   * 요청한 리소스가 존재하지 않는 경우
+     
+     * 모든 경로에 대해서 404 page로 redirect 시키기
+       
+       * 기존에 명시한 경로가 아닌 모든 경로가 404 page로 redirect됨
+       
+       * 이때, routes에 최하단부에 작성해야 함
+
+
+
+## 4. Articles app with Vue
+
+----
+
+1. **Index**
+
+2. **Create**
+   
+   * **v-on:{event}.prevent**를 활용하여 submit **이벤트 동작 취소**하기
+     
+     * @submit.prevent=""
+
+3. **Detail**
+   
+   * **동적인자**를 통해 받은 id는 **str**이므로 형변환을 해서 비교
+     
+     * Number(id)
+   
+   * optional chaining(**?.**)을 통해 article 객체가 있을 때만 출력되도록 수정
+   
+   * **[참고] Optional Chaining**
+     
+     * Optional Chaining(**?.**) 앞의 평가 대상이 **undefined나 null**이면 -> **에러 발생X**, **undefined 반환**
+   
+   * **Date in JavaScript**
+     
+     * JavaScript에서 시간을 나타내는 Date 객체는 1970년 1월 1일 UTC(협정 세계시) 자정과의 시간 차이를 밀리초로 나타내는 정수값을 담음
+       
+       * **Date().toLocaleString()** 을 사용하여 변환
+       
+       * new Date(article?.createdAt).toLocaleString()
+
+4. **Delete**
+
+5. **404 Not Found**
+   
+   * Detail에 대한 route 보다 먼저 등록해줘야 함
+     
+     * path: '/404-not-found'
+     
+     * /404로 등록 -> 404번째 게시글과 혼동됨
+   
+   * 요청한 리소스가 존재하지 않는 경우 404 page로 redirect 시키기
+     
+     * \$router.push와 마찬가지로 name 이용하여 이동 가능
+     
+     * redirect: { name: 'NotFound404' }
 
 
